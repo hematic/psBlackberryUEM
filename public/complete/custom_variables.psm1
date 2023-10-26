@@ -1,5 +1,19 @@
 function Get-CustomVariables {
 
+    <#
+    .SYNOPSIS
+    Function to Get custom variables.
+
+    .DESCRIPTION
+    Function to Get custom variables.
+
+    .EXAMPLE
+    Get-CustomVariables
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Custom_variables.html#resource_Custom_variables_getCustomVariables_GET
+    #>
+
     Param(
     )
 

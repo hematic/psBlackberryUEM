@@ -12,7 +12,7 @@
     #RootModule = '.\psExtrahop.psm1'
     
     # Version number of this module.
-    ModuleVersion = '1.0.8'
+    ModuleVersion = '1.0.9'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -67,6 +67,7 @@
     
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
     NestedModules = @(
+        #Public
         '.\Public\complete\apns.psm1'
         '.\Public\complete\apple_dep.psm1'
         '.\Public\complete\apple_vpp_account.psm1'
@@ -74,9 +75,9 @@
         '.\Public\complete\application_servers.psm1'
         '.\Public\complete\applications.psm1'
         '.\Public\complete\clusters.psm1'
+        '.\Public\complete\company_directories.psm1'
         '.\Public\complete\custom_variables.psm1'
         '.\Public\complete\devices.psm1'
-        '.\Public\complete\directories.psm1'
         '.\Public\complete\info.psm1'
         '.\Public\complete\licensing.psm1'
         '.\Public\complete\ping.psm1'
@@ -84,7 +85,10 @@
         '.\Public\complete\servers.psm1'
         '.\Public\complete\shared_device_groups.psm1'
         '.\Public\complete\utilities.psm1'
+        #Partial
+        '.\Public\complete\application_configs.psm1'
         '.\Public\partial\users.psm1'
+        #Private
         '.\Private\request_body_functions.psm1'
         '.\Private\helper_functions.psm1'
     )
@@ -128,7 +132,7 @@
             IconUri = 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/31/fb/9e/31fb9e56-debe-002b-bb3c-b774864ac855/AppIconForGood-0-1x_U007emarketing-0-10-0-85-220.png/1200x630wa.png'
     
             # ReleaseNotes of this module
-            ReleaseNotes = 'Restructure of files while in progress. Added in much more API coverage.'
+            ReleaseNotes = 'Greatly updated help. Added in a few more covered endpoints.'
     
         } # End of PSData hashtable
     
@@ -138,8 +142,7 @@
     # HelpInfoURI = ''
     
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
-    # DefaultCommandPrefix = ''
-    
+    # DefaultCommandPrefix = ''  
 }
     
     

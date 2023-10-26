@@ -1,11 +1,45 @@
 function Get-ApplicationServers {
+
+    <#
+    .SYNOPSIS
+
+    Function to Get the BlackBerry Dynamics application servers.
+
+    .DESCRIPTION
+
+    This function Gets the BlackBerry Dynamics application servers.
+
+    .PARAMETER app_id
+    The application identifier.
+
+    .PARAMETER connection_profile_name
+    The connection profile name.
+
+    .INPUTS
+
+    None.
+
+    .OUTPUTS
+
+    unknown
+
+    .EXAMPLE
+
+    Get-ApplicationServers -app_id $id -connection_profile_name $profile_name
+
+    .LINK
+
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Servers.html#resource_Application_Servers_getApplicationServers_GET
+
+    #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $false)]
         [string] $app_id,
 
         [Parameter(Mandatory = $false)]
-        [String] $connectionProfileName
+        [String] $connection_profile_name
     )
 
     begin {

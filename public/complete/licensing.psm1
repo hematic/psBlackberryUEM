@@ -1,5 +1,19 @@
 function Get-LicensingInfo {
 
+    <#
+    .SYNOPSIS
+    Function to Get licensing information. 
+
+    .DESCRIPTION
+    Function to Get licensing information. 
+
+    .EXAMPLE
+    Get-LicensingInfo
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Licensing.html#resource_Licensing_getLicensingInformation_GET
+    #>
+
     Param(
     )
 
@@ -17,12 +31,26 @@ function Get-LicensingInfo {
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
 
 function Get-GroupBasedLicensingInfo {
+
+    <#
+    .SYNOPSIS
+    Function to Get group-based licensing information.
+
+    .DESCRIPTION
+    Function to Get group-based licensing information.
+
+    .EXAMPLE
+    Get-GroupBasedLicensingInfo
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Licensing.html#resource_Licensing_getGroupLicensingInformation_GET
+    #>
 
     Param(
     )
@@ -41,7 +69,7 @@ function Get-GroupBasedLicensingInfo {
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

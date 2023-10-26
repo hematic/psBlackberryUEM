@@ -1,25 +1,3 @@
-function Ping-BBUEMServer {
-
-    Param(
-    )
-    $Headers = @{
-        'Accept' = 'text/plain'
-    }
-
-    $api_url = $global:env:uem_environment + "/util/ping"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "Authentication failed: $_"}
-        } 
-    }
-}
-
 function Get-BBUEMAuthString {
 
     <#

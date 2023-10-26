@@ -9,7 +9,7 @@ Automate tasks with the Blackberry UEM API using psBlackberryUEM!
 
 This project hopes to offer complete code coverage for the [Blackberry UEM API](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/)
 
-As of Release Version [1.0.8](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.8) the below table reflects the current code coverage.
+As of Release Version [1.0.9](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.8) the below table reflects the current code coverage.
 
 |Endpoint|Code Coverage|Help|Tested|
 |-|-|-|-|
@@ -17,27 +17,27 @@ As of Release Version [1.0.8](https://www.powershellgallery.com/packages/WC-Blac
 |Apple DEP|Complete|Partial|ToDo|
 |Apple VPP Account|Complete|ToDo|ToDo|
 |Application Groups|Complete|ToDo|ToDo|
-|Application Servers|Complete|ToDo|ToDo|
-|Application Configs|ToDo|ToDo|ToDo|
+|Application Servers|Complete|Complete|ToDo|
+|Application Configs|Partial|ToDo|ToDo|
 |Applications|Complete|Complete|Complete|
 |Certificates|ToDo|ToDo|ToDo|
-|Clusters|Complete|ToDo|ToDo|
-|Company Directories|ToDo|ToDo|ToDo
-|Custom Variables|Complete|ToDo|ToDo|
+|Clusters|Complete|Complete|ToDo|
+|Company Directories|Complete|Complete|ToDo
+|Custom Variables|Complete|Complete|ToDo|
 |Device Groups|ToDo|ToDo|ToDo|
-|Devices|Complete|ToDo|ToDo|
+|Devices|Complete|Complete|ToDo|
 |Email Templates|ToDo|ToDo|ToDo|
 |Entities|ToDo|ToDo|ToDo|
 |Groups|ToDo|ToDo|ToDo|
-|Info|Complete|ToDo|ToDo|
-|Licensing|Complete|ToDo|ToDo|
-|Ping|Complete|ToDo|ToDo|
+|Info|Complete|Complete|ToDo|
+|Licensing|Complete|Complete|ToDo|
+|Ping|Complete|Complete|ToDo|
 |Profiles|ToDo|ToDo|ToDo|
-|Roles|Complete|ToDo|ToDo|
-|Servers|Complete|ToDo|ToDo|
-|Shared Device Groups|Complete|ToDo|ToDo|
-|Users|Partial|ToDo|ToDo|
-|Utilities|Complete|ToDo|ToDo|
+|Roles|Complete|Complete|ToDo|
+|Servers|Complete|Complete|ToDo|
+|Shared Device Groups|Complete|Complete|ToDo|
+|Users|Partial|Partial|ToDo|
+|Utilities|Complete|Complete|ToDo|
 
 
 # Basic Usage

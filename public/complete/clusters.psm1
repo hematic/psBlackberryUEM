@@ -1,21 +1,28 @@
 function Get-ProxyCluster {
 
+    <#
+    .SYNOPSIS
+    Function to Get the Blackberry Proxy Clusters. 
+
+    .DESCRIPTION
+    Function to Get the Blackberry Proxy Clusters. 
+
+    .EXAMPLE
+    Get-ProxyCluster
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Clusters.html#resource_Clusters_getClusters_GET
+    #>
+
     Param(
-        [Parameter(Mandatory = $true)]
-        [string]$user,
-        [Parameter(Mandatory = $false)]
-        [ValidateRange(1, 100)]
-        [int]$limit = 100,
-        [Parameter(Mandatory = $false)]
-        [bool]$include_existing_users = $false
     )
 
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.directoryusers-v1+json'
+        'Accept' = 'application/vnd.blackberry.clusters-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 
-    $api_url = $global:env:uem_environment + "/directories/users?search=$user&limit=$limit&includeExistingUsers=$include_exisiting_users"
+    $api_url = $global:env:uem_environment + "/clusters"
 
     try {
         Invoke-IgnoreCertForPS5
@@ -24,9 +31,7 @@ function Get-ProxyCluster {
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            '409' {Write-Error "No company directories configured."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

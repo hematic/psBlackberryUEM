@@ -1,95 +1,75 @@
-function New-DeviceQuery {
-    Param (
-        [Parameter(Mandatory = $True)]
-        [hashtable]$search_params
-    )
-
-    $queryComponents = @()
-
-    If($search_params.keys -contains 'activation_date'){
-        If(!$search_params.keys -contains $operator){
-            Write-Error "When passing an activation date you must always pass an operator parameter."
-        }
-        switch ($search_params['operator']) {
-            "Less Than" { $operatorSymbol = "<" }
-            "Less Than Or Equal To" { $operatorSymbol = "<=" }
-            "Greater Than" { $operatorSymbol = ">" }
-            "Greater Than Or Equal To" { $operatorSymbol = ">=" }
-        }
-        $queryComponents += $("activationDate" + $operatorSymbol + $search_params['activation_date'])
-    }
-
-    If($search_params.keys -contains 'dynamics_container_id'){
-        $queryComponents += $("dynamicsContainerId=" + $search_params['dynamics_container_id'])
-    }
-
-    If($search_params.keys -contains 'guid'){
-        $queryComponents += $("guid=" + $search_params['guid'])
-    }
-
-    If($search_params.keys -contains 'imei'){
-        $queryComponents += $("imei=" + $search_params['imei'])
-    }
-
-    If($search_params.keys -contains 'meid'){
-        $queryComponents += $("meid=" + $search_params['meid'])
-    }
-
-    If($search_params.keys -contains 'ownership'){
-        $queryComponents += $("ownership=" + $search_params['ownership'])
-    }
-
-    If($search_params.keys -contains 'udid'){
-        $queryComponents += $("udid=" + $search_params['udid'])
-    }
-
-    If($search_params.keys -contains 'wifi_mac_address'){
-        $queryComponents += $("wifiMacAddress=" + $search_params['wifi_mac_address'])
-    }
-
-    If($search_params.keys -contains 'shared_device_only'){
-        $queryComponents += $("sharedDeviceOnly=" + $search_params['shared_device_only'])
-    }
-
-    If($search_params.keys -contains 'os'){
-        $queryComponents += $("os=" + $search_params['os'])
-    }
-
-    If($search_params.keys -contains 'os_family_name'){
-        $queryComponents += $("osFamilyName=" + $search_params['os_family_name'])
-    }
-
-    If($search_params.keys -contains 'hardware_model'){
-        $queryComponents += $("hardwareModel=" + $search_params['hardware_model'])
-    }
-
-    If($search_params.keys -contains 'hardware_vendor_company_name'){
-        $queryComponents += $("hardwareVendorCompanyName=" + $search_params['hardware_vendor_company_name'])
-    }
-
-    If($search_params.keys -contains 'enrollment_type'){
-        $queryComponents += $("enrollmentType=" + $search_params['enrollment_type'])
-    }
-
-    $query_string = [String]::Join(",", $queryComponents)
-
-
-    If($search_params.keys -contains 'include_total'){
-        $query_string = $query_string + $("&includeTotal=" + $search_params['include_total'])
-    }
-
-    If($search_params.keys -contains 'max'){
-        $query_string = $query_string + $("&max=" + $search_params['max'])
-    }
-
-    If($search_params.keys -contains 'offset'){
-        $query_string = $query_string +$("&offset=" + $search_params['offset'])
-    }
-
-    Write-Output $query_string
-}
-
 function Search-Devices {
+
+    <#
+    .SYNOPSIS
+    Function to Search for devices. 
+
+    .DESCRIPTION
+    Function to Search for devices. 
+
+    .PARAMETER activation_date
+    Date value in ISO-8601 format yyyy-MM-ddTHH:mm:ss.SSSZ. Use operators > or >= for the minimum date, and/or < or <= for the maximum date. For example: activationDate>=1970-01-01T00:00:00.000Z,activationDate<=1970-12-31T23:59:59.000Z.
+
+    .PARAMETER operator
+    "Less Than", "Less Than Or Equal To", "Greater Than", "Greater Than Or Equal To"
+
+    .PARAMETER dynamics_container_id
+    Identifier of a Dynamics container that is activated on a device. When searching by a BlackBerry Dynamics container Id, response will additionally contain user-device application route link that corresponds to the Dynamics application to which the container belongs and the user who owns the device.
+
+    .PARAMETER guid
+    GUID of the device.
+
+    .PARAMETER imei
+    IMEI of the device.
+
+    .PARAMETER meid
+    MEID of the device.
+
+    .PARAMETER ownership
+    'CORPORATE' or 'PERSONAL'
+
+    .PARAMETER udid
+    UDID of the device.
+
+    .PARAMETER wifi_mac_address
+    WIFI MAC address of the device.
+
+    .PARAMETER shared_device_only
+    Filter to return only devices that are part of shared device groups. If filter is not specified then all the devices will be returned
+
+    .PARAMETER os
+    The operating system of the device.
+
+    .PARAMETER os_family_name
+    The operating system family name of the device.
+
+    .PARAMETER hardware_model
+    The hardware model of the device.
+
+    .PARAMETER hardware_vendor_company_name
+    The hardware vendor company name of the device.    
+
+    .PARAMETER enrollment_type
+    The enrollment type of the device.
+
+    .PARAMETER include_total
+    If you want the total number of devices matching the search included in the response (which may be different from the number of devices actually returned) set this to true; otherwise set to false. By default the total will not be included in the response.    
+
+    .PARAMETER max
+    The maximum number of device results to get, between 1 and 1000 inclusive. If not specified, a value of 100 will be used.
+
+    .PARAMETER offset
+    The number of matching devices to exclude from the beginning of the list of devices in the response; greater than or equal to 0. If not specified, a value of 0 will be used to indicate that no matches should be excluded. Used in order to get "pages" of results. For example, to get the first 50 matching devices, specify max=50 (and optionally offset=0); and to get the next 50 matching devices specify max=50 and offset=50, and so on.    
+
+    .EXAMPLE
+    Search-Devices -guid '714a8084-a059-4fbc-91c3-99daea0d0fb8' -activation_date $date -operator "Less Than Or Equal To" -max 25
+
+    .EXAMPLE
+    Search-UEMAPiUser -user 'stephan*' -offset 10
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Devices.html#resource_Devices_getDevices_GET
+    #>
 
     param(
         [Parameter(Mandatory = $False)]

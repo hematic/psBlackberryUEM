@@ -1,5 +1,19 @@
 function Get-BBUEMSystemInfo {
 
+    <#
+    .SYNOPSIS
+    Function to Get system info. 
+
+    .DESCRIPTION
+    Function to Get system info. 
+
+    .EXAMPLE
+    Get-BBUEMSystemInfo
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Info.html#resource_Info_getSystemInfo_GET
+    #>
+
     Param(
     )
 

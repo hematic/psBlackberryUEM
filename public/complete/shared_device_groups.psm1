@@ -1,5 +1,19 @@
 function Get-SharedDeviceGroups {
 
+    <#
+    .SYNOPSIS
+    Function to search the blackberry uem api and retrieve all shared device groups.
+
+    .DESCRIPTION
+    Get all shared device groups If no shared device groups are found, 
+    an empty shared device group list is included in the response body. 
+
+    .EXAMPLE
+    Get-SharedDeviceGroups
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Shared_Device_Groups.html#resource_Shared_Device_Groups_getSharedDeviceGroups_GET
+    #>
     Param(
     )
 
@@ -18,12 +32,30 @@ function Get-SharedDeviceGroups {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
 
 function Get-SharedDeviceGroupByGuid {
+
+    <#
+    .SYNOPSIS
+    Function to search the blackberry uem api and get 
+    one shared device group by GUID. 
+
+    .DESCRIPTION
+    Get one shared device group by GUID. 
+
+    .PARAMETER guid
+    GUID of the shared device group to get
+
+    .EXAMPLE
+    Get-SharedDeviceGroupByGuid -guid 'b15da5f1-a6e7-4bed-ae51-c3d4b99dc397'
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Shared_Device_Groups.html#resource_Shared_Device_Groups_getSharedDeviceGroup_GET
+    #>
 
     Param(
         [Parameter(mandatory=$true)]
@@ -46,12 +78,29 @@ function Get-SharedDeviceGroupByGuid {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
             '404'   {Write-Error "Shared device group not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
 
 function Get-SharedDeviceGroupDevices {
+    <#
+    .SYNOPSIS
+    Function to search the blackberry uem api and Get all user devices from a shared device group by GUID. 
+
+    .DESCRIPTION
+    This function searches the Blackberry UEM API by username and 
+    gets all user devices from a shared device group by GUID. 
+
+    .PARAMETER guid
+    Guid of the shared device group to get the UserDevices from
+
+    .EXAMPLE
+    Get-SharedDeviceGroupDevices -guid '24caf4ad-41a7-453b-89b3-ef1d313cac1a'
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Shared_Device_Groups.html#resource_Shared_Device_Groups_getSharedDeviceGroupDevices_GET
+    #>
 
     Param(
         [Parameter(mandatory=$true)]
@@ -74,12 +123,36 @@ function Get-SharedDeviceGroupDevices {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
             '404'   {Write-Error "Shared device group not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
 
-function Get-SharedDeviceGroupDevices {
+function Get-SharedDeviceGroupDevice {
+
+    <#
+    .SYNOPSIS
+    Function to search get the details of a user device from a shared device group by GUID. 
+
+    .DESCRIPTION
+    This function searches the Blackberry UEM API and Gets the details of a user device 
+    from a shared device group by GUID. 
+
+    .PARAMETER group_guid
+    The username to search for.
+
+    .PARAMETER device_guid
+    The starting point from where to fetch the next set of results.
+
+    .EXAMPLE
+    Search-UEMAPiUser -user 'stephaniem' -offset 5
+
+    .EXAMPLE
+    Search-UEMAPiUser -user 'stephan*' -offset 10
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_14_rest/resource_Users.html#resource_Users_getUsers_GET
+    #>
 
     Param(
         [Parameter(mandatory=$true)]
@@ -105,7 +178,7 @@ function Get-SharedDeviceGroupDevices {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
             '404'   {Write-Error "Shared device group not found or Device Not Found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
