@@ -12,7 +12,7 @@
     #RootModule = '.\psExtrahop.psm1'
     
     # Version number of this module.
-    ModuleVersion = '1.0.9'
+    ModuleVersion = '1.0.10'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -86,7 +86,7 @@
         '.\Public\complete\shared_device_groups.psm1'
         '.\Public\complete\utilities.psm1'
         #Partial
-        '.\Public\complete\application_configs.psm1'
+        '.\Public\partial\application_configs.psm1'
         '.\Public\partial\users.psm1'
         #Private
         '.\Private\request_body_functions.psm1'

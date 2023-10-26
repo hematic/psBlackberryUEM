@@ -9,7 +9,7 @@ Automate tasks with the Blackberry UEM API using psBlackberryUEM!
 
 This project hopes to offer complete code coverage for the [Blackberry UEM API](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/)
 
-As of Release Version [1.0.9](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.8) the below table reflects the current code coverage.
+As of Release Version [1.0.10](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.10) the below table reflects the current code coverage.
 
 |Endpoint|Code Coverage|Help|Tested|
 |-|-|-|-|
