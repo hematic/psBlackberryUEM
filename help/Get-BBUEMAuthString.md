@@ -1,7 +1,7 @@
 ---
 external help file: utilities.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Utilities.html#resource_Utilities_generateAuthorizationHeader_POST
 schema: 2.0.0
 ---
 
@@ -13,12 +13,12 @@ This function generates a API Auth token for Blackberry UEM.
 ## SYNTAX
 
 ```
-Get-BBUEMAuthString [-Credential] <PSCredential> [-Environment] <String> [<CommonParameters>]
+Get-BBUEMAuthString [-Credential] <PSCredential> [-base_uri] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 The API Auth token gets set as a global variable: $global:env:uem_auth_token
-The fucntion also sets a base api url string for connectingto dev and prod.
+The function also sets a base api url string for connecting to the environment.
 That global variable is: $global:env:uem_environment.
 This allows for cleaner
 uri strings in the other functions without needing to support dev and prod each time.
@@ -27,12 +27,12 @@ uri strings in the other functions without needing to support dev and prod each 
 
 ### EXAMPLE 1
 ```
-Get-UEMApiAuthString -Credential $Credential -Environment dev
+Get-UEMApiAuthString -Credential $Credential -Environment https://server:port/tenantID/api/v1
 ```
 
 ### EXAMPLE 2
 ```
-Get-UEMApiAuthString -Credential (get-credential) -Environment prod
+Get-UEMApiAuthString -Credential (get-credential) -Environment $prod
 ```
 
 ## PARAMETERS
@@ -52,9 +52,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Environment
-The user simply needs to know if they want to connect to dev or prod and the code
-will handle the appropriate url generation.
+### -base_uri
+Enter in the format of https://server:port/tenantID/api/v1
 
 ```yaml
 Type: String
@@ -80,3 +79,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Utilities.html#resource_Utilities_generateAuthorizationHeader_POST](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Utilities.html#resource_Utilities_generateAuthorizationHeader_POST)
+

@@ -1,14 +1,21 @@
 ---
 external help file: apple_dep.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version:
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_assignEnrollmentConfigurationToDEPDevices_POST
 schema: 2.0.0
 ---
 
 # Add-EnrollmentConfigtoDepDevices
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Assign DEP enrollment configuration to one or more DEP devices by GUID. 
+Only the GUID field of each DEP device is required.
+If a device listed 
+in the request body already has enrollment configuration assigned, it 
+will be overwritten.
+If enrollment configuration cannot be assigned to 
+one or more of the devices listed in the request, these devices will be 
+returned in the response.
 
 ## SYNTAX
 
@@ -18,24 +25,29 @@ Add-EnrollmentConfigtoDepDevices [-dep_enrollment_config_guid] <Guid> [-dep_devi
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Assign DEP enrollment configuration to one or more DEP devices by GUID. 
+Only the GUID field of each DEP device is required.
+If a device listed 
+in the request body already has enrollment configuration assigned, it 
+will be overwritten.
+If enrollment configuration cannot be assigned to 
+one or more of the devices listed in the request, these devices will be 
+returned in the response.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Add-EnrollmentConfigtoDepDevices -$dep_enrollment_config_guid '51591f77-cd3a-4dea-9bd6-8addd47b6fe2' -dep_device_guids $device_guids
+```
 
 ## PARAMETERS
 
-### -dep_device_guids
-{{ Fill dep_device_guids Description }}
+### -dep_enrollment_config_guid
+GUID of enrollment configuration.
 
 ```yaml
-Type: Guid[]
+Type: Guid
 Parameter Sets: (All)
 Aliases:
 
@@ -46,16 +58,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -dep_enrollment_config_guid
-{{ Fill dep_enrollment_config_guid Description }}
+### -dep_device_guids
+Guids of DEP devices
 
 ```yaml
-Type: Guid
+Type: Guid[]
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -66,11 +78,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_assignEnrollmentConfigurationToDEPDevices_POST](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_assignEnrollmentConfigurationToDEPDevices_POST)
+

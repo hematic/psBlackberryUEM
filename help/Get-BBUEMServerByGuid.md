@@ -1,14 +1,16 @@
 ---
 external help file: servers.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Servers.html#resource_Servers_getServer_GET
 schema: 2.0.0
 ---
 
 # Get-BBUEMServerByGuid
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Get the server (ex.
+BlackBerry Unified Endpoint Manager, 
+BlackBerry Connectivity Node) in the UEM topology.
 
 ## SYNTAX
 
@@ -17,21 +19,21 @@ Get-BBUEMServerByGuid [-server_guid] <Guid> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get the server (ex.
+BlackBerry Unified Endpoint Manager, 
+BlackBerry Connectivity Node) in the UEM topology.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-BBUEMServerByGuid -guid 'b88bb3f5-5056-43d5-851d-b9a55d0984c5'
+```
 
 ## PARAMETERS
 
 ### -server_guid
-{{ Fill server_guid Description }}
+The server to get by guid.
 
 ```yaml
 Type: Guid
@@ -39,7 +41,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +52,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Servers.html#resource_Servers_getServer_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Servers.html#resource_Servers_getServer_GET)
+

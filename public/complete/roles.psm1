@@ -201,7 +201,7 @@ Function Add-AdminRoleToUser {
         [System.Guid] $user_guid
     )
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.users-v1+json'
+        'Content-Type' = 'application/vnd.blackberry.users-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 

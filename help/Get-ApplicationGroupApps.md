@@ -1,14 +1,14 @@
 ---
 external help file: application_groups.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://stackoverflow.com/questions/74143120/convert-system-security-securestring-to-base64string
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_getApplications_GET
 schema: 2.0.0
 ---
 
 # Get-ApplicationGroupApps
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get all the applications assigned to an application group by a specific GUID.
 
 ## SYNTAX
 
@@ -17,21 +17,19 @@ Get-ApplicationGroupApps [-app_group_guid] <Guid> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+This function Gets all the applications assigned to an application group by a specific GUID.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-ApplicationGroupApps -app_group_id $guid
+```
 
 ## PARAMETERS
 
 ### -app_group_guid
-{{ Fill app_group_guid Description }}
+The application group identifier.
 
 ```yaml
 Type: Guid
@@ -39,7 +37,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +48,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
+### None.
 ## OUTPUTS
 
-### System.Object
+### unknown
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_getApplications_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_getApplications_GET)
+

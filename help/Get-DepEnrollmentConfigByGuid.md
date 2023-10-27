@@ -1,14 +1,14 @@
 ---
 external help file: apple_dep.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_getDepEnrollmentConfig_GET
 schema: 2.0.0
 ---
 
 # Get-DepEnrollmentConfigByGuid
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get details of a DEP enrollment configuration by GUID.
 
 ## SYNTAX
 
@@ -17,21 +17,19 @@ Get-DepEnrollmentConfigByGuid [-dep_enrollment_config_guid] <Guid> [<CommonParam
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to Get details of a DEP enrollment configuration by GUID.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-DepEnrollmentConfigByGuid -dep_enrollment_config_guid 'eb4f5da2-e221-4403-a78f-3513902e2718'
+```
 
 ## PARAMETERS
 
 ### -dep_enrollment_config_guid
-{{ Fill dep_enrollment_config_guid Description }}
+GUID of the DEP enrollment config to get
 
 ```yaml
 Type: Guid
@@ -39,7 +37,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +48,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_getDepEnrollmentConfig_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_getDepEnrollmentConfig_GET)
+

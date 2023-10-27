@@ -1,6 +1,6 @@
 ---
 external help file: helper_functions.psm1-help.xml
-Module Name: WC-BlackberryUEM
+Module Name: psBlackberryUEM
 online version: https://stackoverflow.com/questions/74143120/convert-system-security-securestring-to-base64string
 schema: 2.0.0
 ---

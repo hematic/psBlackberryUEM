@@ -1,14 +1,14 @@
 ---
 external help file: licensing.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Licensing.html#resource_Licensing_getLicensingInformation_GET
 schema: 2.0.0
 ---
 
 # Get-LicensingInfo
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get licensing information.
 
 ## SYNTAX
 
@@ -17,26 +17,24 @@ Get-LicensingInfo
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to Get licensing information.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-LicensingInfo
+```
 
 ## PARAMETERS
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Licensing.html#resource_Licensing_getLicensingInformation_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Licensing.html#resource_Licensing_getLicensingInformation_GET)
+

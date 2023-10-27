@@ -1,14 +1,14 @@
 ---
 external help file: custom_variables.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Custom_variables.html#resource_Custom_variables_getCustomVariables_GET
 schema: 2.0.0
 ---
 
 # Get-CustomVariables
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get custom variables.
 
 ## SYNTAX
 
@@ -17,26 +17,24 @@ Get-CustomVariables
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to Get custom variables.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-CustomVariables
+```
 
 ## PARAMETERS
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Custom_variables.html#resource_Custom_variables_getCustomVariables_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Custom_variables.html#resource_Custom_variables_getCustomVariables_GET)
+

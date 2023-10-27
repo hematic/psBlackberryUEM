@@ -1,14 +1,14 @@
 ---
-external help file: utilities.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Users.html#resource_Users_sendUserDeviceCommand_POST
+external help file: ping.psm1-help.xml
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Ping.html#resource_Ping_ping_GET
 schema: 2.0.0
 ---
 
 # Ping-BBUEMServer
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to perform an authenticated ping.
 
 ## SYNTAX
 
@@ -17,26 +17,27 @@ Ping-BBUEMServer
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Ping server and get the current uptime of the server. 
+This is an authenticated call and can be used to test if 
+the server is up and the authentication header is valid 
+before attempting to access other authenticated routes.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Ping-BBUEMServer
+```
 
 ## PARAMETERS
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Ping.html#resource_Ping_ping_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Ping.html#resource_Ping_ping_GET)
+

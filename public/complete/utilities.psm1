@@ -49,7 +49,7 @@ function Get-BBUEMAuthString {
         [string]$base_uri
     )
 
-        $api_url = $base_uri + '/v1/util/authorization'
+        $api_url = $base_uri + '/util/authorization'
         $global:env:uem_environment = $base_uri
   
     $Headers = @{

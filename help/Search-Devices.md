@@ -1,14 +1,14 @@
 ---
 external help file: devices.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Users.html#resource_Users_getUserDetail_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Devices.html#resource_Devices_getDevices_GET
 schema: 2.0.0
 ---
 
 # Search-Devices
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Search for devices.
 
 ## SYNTAX
 
@@ -21,21 +21,26 @@ Search-Devices [[-activation_date] <DateTime>] [[-operator] <String>] [[-dynamic
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to Search for devices.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Search-Devices -guid '714a8084-a059-4fbc-91c3-99daea0d0fb8' -activation_date $date -operator "Less Than Or Equal To" -max 25
 ```
 
-{{ Add example description here }}
+### EXAMPLE 2
+```
+Search-UEMAPiUser -user 'stephan*' -offset 10
+```
 
 ## PARAMETERS
 
 ### -activation_date
-{{ Fill activation_date Description }}
+Date value in ISO-8601 format yyyy-MM-ddTHH:mm:ss.SSSZ.
+Use operators \> or \>= for the minimum date, and/or \< or \<= for the maximum date.
+For example: activationDate\>=1970-01-01T00:00:00.000Z,activationDate\<=1970-12-31T23:59:59.000Z.
 
 ```yaml
 Type: DateTime
@@ -43,14 +48,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -dynamics_container_id
-{{ Fill dynamics_container_id Description }}
+### -operator
+"Less Than", "Less Than Or Equal To", "Greater Than", "Greater Than Or Equal To"
 
 ```yaml
 Type: String
@@ -64,27 +69,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -enrollment_type
-{{ Fill enrollment_type Description }}
+### -dynamics_container_id
+Identifier of a Dynamics container that is activated on a device.
+When searching by a BlackBerry Dynamics container Id, response will additionally contain user-device application route link that corresponds to the Dynamics application to which the container belongs and the user who owns the device.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: EXTERNAL_SERVICE, FULL_CONTROL_KNOX, MDM_CONTROLS, STRONG_AUTHENTICATION_BY_BLACKBERRY, USER_PRIVACY, USER_PRIVACY_AFW, USER_PRIVACY_AFW_PREMIUM, USER_PRIVACY_DYNAMICS, USER_PRIVACY_KNOX, USER_PRIVACY_USER_ENROLLMENT, USER_PRIVACY_WITH_PROFILES, WORK_AND_PERSONAL_CORPORATE, WORK_AND_PERSONAL_REGULATED, WORK_SPACE_ONLY, WORK_SPACE_ONLY_AFW, WORK_SPACE_ONLY_AFW_PREMIUM, WORK_SPACE_ONLY_KNOX
-
-Required: False
-Position: 14
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -guid
-{{ Fill guid Description }}
-
-```yaml
-Type: Guid
 Parameter Sets: (All)
 Aliases:
 
@@ -95,41 +85,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -hardware_model
-{{ Fill hardware_model Description }}
+### -guid
+GUID of the device.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 12
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -hardware_vendor_company_name
-{{ Fill hardware_vendor_company_name Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 13
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -imei
-{{ Fill imei Description }}
-
-```yaml
-Type: String
+Type: Guid
 Parameter Sets: (All)
 Aliases:
 
@@ -140,38 +100,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -include_total
-{{ Fill include_total Description }}
-
-```yaml
-Type: Boolean
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 15
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -max
-{{ Fill max Description }}
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 16
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -meid
-{{ Fill meid Description }}
+### -imei
+IMEI of the device.
 
 ```yaml
 Type: String
@@ -185,69 +115,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -offset
-{{ Fill offset Description }}
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 17
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -operator
-{{ Fill operator Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: Less Than, Less Than Or Equal To, Greater Than, Greater Than Or Equal To
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -os
-{{ Fill os Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 10
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -os_family_name
-{{ Fill os_family_name Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 11
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ownership
-{{ Fill ownership Description }}
+### -meid
+MEID of the device.
 
 ```yaml
 Type: String
@@ -261,23 +130,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -shared_device_only
-{{ Fill shared_device_only Description }}
-
-```yaml
-Type: Boolean
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 9
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -udid
-{{ Fill udid Description }}
+### -ownership
+'CORPORATE' or 'PERSONAL'
 
 ```yaml
 Type: String
@@ -291,8 +145,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -wifi_mac_address
-{{ Fill wifi_mac_address Description }}
+### -udid
+UDID of the device.
 
 ```yaml
 Type: String
@@ -306,16 +160,172 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -wifi_mac_address
+WIFI MAC address of the device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 9
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -shared_device_only
+Filter to return only devices that are part of shared device groups.
+If filter is not specified then all the devices will be returned
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 10
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -os
+The operating system of the device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 11
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -os_family_name
+The operating system family name of the device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 12
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -hardware_model
+The hardware model of the device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 13
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -hardware_vendor_company_name
+The hardware vendor company name of the device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 14
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -enrollment_type
+The enrollment type of the device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 15
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -include_total
+If you want the total number of devices matching the search included in the response (which may be different from the number of devices actually returned) set this to true; otherwise set to false.
+By default the total will not be included in the response.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 16
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -max
+The maximum number of device results to get, between 1 and 1000 inclusive.
+If not specified, a value of 100 will be used.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 17
+Default value: 100
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -offset
+The number of matching devices to exclude from the beginning of the list of devices in the response; greater than or equal to 0.
+If not specified, a value of 0 will be used to indicate that no matches should be excluded.
+Used in order to get "pages" of results.
+For example, to get the first 50 matching devices, specify max=50 (and optionally offset=0); and to get the next 50 matching devices specify max=50 and offset=50, and so on.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 18
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Devices.html#resource_Devices_getDevices_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Devices.html#resource_Devices_getDevices_GET)
+

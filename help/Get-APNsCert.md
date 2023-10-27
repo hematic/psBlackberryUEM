@@ -1,14 +1,14 @@
 ---
 external help file: apns.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://stackoverflow.com/questions/74143120/convert-system-security-securestring-to-base64string
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_APNs.html#resource_APNs_getAPNsInfo_GET
 schema: 2.0.0
 ---
 
 # Get-APNsCert
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to retrieve status of the APNs certificate
 
 ## SYNTAX
 
@@ -17,26 +17,26 @@ Get-APNsCert
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to retrieve status of the APNs certificate
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-APNsCert
+```
 
 ## PARAMETERS
 
 ## INPUTS
 
-### None
-
+### None.
 ## OUTPUTS
 
-### System.Object
+### #TODO
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_APNs.html#resource_APNs_getAPNsInfo_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_APNs.html#resource_APNs_getAPNsInfo_GET)
+

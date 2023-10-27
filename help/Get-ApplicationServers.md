@@ -1,52 +1,35 @@
 ---
 external help file: application_servers.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://stackoverflow.com/questions/74143120/convert-system-security-securestring-to-base64string
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Servers.html#resource_Application_Servers_getApplicationServers_GET
 schema: 2.0.0
 ---
 
 # Get-ApplicationServers
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get the BlackBerry Dynamics application servers.
 
 ## SYNTAX
 
 ```
-Get-ApplicationServers [[-app_id] <String>] [[-connectionProfileName] <String>] [<CommonParameters>]
+Get-ApplicationServers [[-app_id] <String>] [[-connection_profile_name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+This function Gets the BlackBerry Dynamics application servers.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-ApplicationServers -app_id $id -connection_profile_name $profile_name
+```
 
 ## PARAMETERS
 
 ### -app_id
-{{ Fill app_id Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -connectionProfileName
-{{ Fill connectionProfileName Description }}
+The application identifier.
 
 ```yaml
 Type: String
@@ -60,16 +43,33 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -connection_profile_name
+The connection profile name.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
-
+### None.
 ## OUTPUTS
 
-### System.Object
+### unknown
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Servers.html#resource_Application_Servers_getApplicationServers_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Servers.html#resource_Application_Servers_getApplicationServers_GET)
+

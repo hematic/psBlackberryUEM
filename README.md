@@ -1,7 +1,11 @@
 # psBlackberryUEM
 PowerShell Module to interact with the BlackBerry UEM API
 
-# psBlackberryUEM
+# Current Release Notes (1.0.13)
+I had done a bad job of the return values from some functions.
+I had re-used code as was returning properties of the response object that didnt exist for some endpoints. This has been fixed.
+
+
 
 # Description
 
@@ -9,7 +13,7 @@ Automate tasks with the Blackberry UEM API using psBlackberryUEM!
 
 This project hopes to offer complete code coverage for the [Blackberry UEM API](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/)
 
-As of Release Version [1.0.11](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.11) the below table reflects the current code coverage.
+As of Release Version [1.0.13](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.13) the below table reflects the current code coverage.
 
 |Endpoint|Code Coverage|Help|Tested|
 |-|-|-|-|

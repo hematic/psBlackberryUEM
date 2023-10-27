@@ -1,14 +1,14 @@
 ---
 external help file: apple_vpp_account.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_14_rest/resource_Users.html#resource_Users_getUsers_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_VPP_Account.html#resource_Apple_VPP_Account_getVppAccounts_GET
 schema: 2.0.0
 ---
 
 # Search-vppAccounts
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get details of Apple VPP accounts from a query.
 
 ## SYNTAX
 
@@ -29,52 +29,19 @@ Search-vppAccounts -token_expiry_date <DateTime> -operator <String> [<CommonPara
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to Get details of Apple VPP accounts from a query.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Search-vppAccounts -vpp_account_name 'VPP-token-version-3' -token_expiry_date '2027-01-01T00:00:00.000Z' -operator 'Less Than'
+```
 
 ## PARAMETERS
 
-### -operator
-{{ Fill operator Description }}
-
-```yaml
-Type: String
-Parameter Sets: Both, DateOnly
-Aliases:
-Accepted values: Less Than, Less Than Or Equal To, Greater Than, Greater Than Or Equal To
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -token_expiry_date
-{{ Fill token_expiry_date Description }}
-
-```yaml
-Type: DateTime
-Parameter Sets: Both, DateOnly
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -vpp_account_name
-{{ Fill vpp_account_name Description }}
+The name of the Apple VPP account.
 
 ```yaml
 Type: String
@@ -88,16 +55,48 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -token_expiry_date
+The Apple VPP account token expiry date.
+
+```yaml
+Type: DateTime
+Parameter Sets: Both, DateOnly
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -operator
+"Less Than", "Less Than Or Equal To", "Greater Than", "Greater Than Or Equal To"
+
+```yaml
+Type: String
+Parameter Sets: Both, DateOnly
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
-
+### None.
 ## OUTPUTS
 
-### System.Object
+### unknown
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_VPP_Account.html#resource_Apple_VPP_Account_getVppAccounts_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_VPP_Account.html#resource_Apple_VPP_Account_getVppAccounts_GET)
+

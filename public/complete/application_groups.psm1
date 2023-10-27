@@ -47,7 +47,7 @@ function Search-BBUEMApplicationGroups {
     try {
         Invoke-IgnoreCertForPS5
         $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response.users
+        return $Response
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
@@ -116,7 +116,7 @@ function New-BBUEMApplicationGroup {
     try {
         Invoke-IgnoreCertForPS5
         $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $body
-        return $Response.users
+        return $Response
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
@@ -174,7 +174,7 @@ function Get-BBUEMApplicationGroup {
     try {
         Invoke-IgnoreCertForPS5
         $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response.users
+        return $Response
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
@@ -231,7 +231,7 @@ function Remove-BBUEMApplicationGroup {
     try {
         Invoke-IgnoreCertForPS5
         $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
-        return $Response.users
+        return $Response
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
@@ -294,7 +294,7 @@ function Set-BBUEMApplicationGroup {
     )
 
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
+        'Content-Type' = 'application/vnd.blackberry.applicationgroup-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 

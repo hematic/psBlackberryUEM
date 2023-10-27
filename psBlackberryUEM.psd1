@@ -12,7 +12,7 @@
     #RootModule = '.\psExtrahop.psm1'
     
     # Version number of this module.
-    ModuleVersion = '1.0.11'
+    ModuleVersion = '1.0.13'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -132,7 +132,7 @@
             IconUri = 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/31/fb/9e/31fb9e56-debe-002b-bb3c-b774864ac855/AppIconForGood-0-1x_U007emarketing-0-10-0-85-220.png/1200x630wa.png'
     
             # ReleaseNotes of this module
-            ReleaseNotes = 'Finalized help on the modules that had code coverage done. Changed the default uncaught error message to be less misleading.'
+            ReleaseNotes = 'Standardized return types.'
     
         } # End of PSData hashtable
     

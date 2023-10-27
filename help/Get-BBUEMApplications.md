@@ -1,6 +1,6 @@
 ---
 external help file: applications.psm1-help.xml
-Module Name: WC-BlackberryUEM
+Module Name: psBlackberryUEM
 online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
 schema: 2.0.0
 ---

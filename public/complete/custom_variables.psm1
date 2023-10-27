@@ -26,7 +26,7 @@ function Get-CustomVariables {
     try {
         Invoke-IgnoreCertForPS5
         $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response.userDevices
+        return $Response
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {

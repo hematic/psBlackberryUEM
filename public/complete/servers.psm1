@@ -197,7 +197,7 @@ function Set-BBUEMServiceByServer {
         }
 
         $Headers = @{
-            'Accept' = 'application/vnd.blackberry.service-v1+json'
+            'Content-Type' = 'application/vnd.blackberry.service-v1+json'
             'Authorization' = $global:env:uem_auth_token
         }
 

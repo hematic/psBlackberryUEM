@@ -1,14 +1,15 @@
 ---
 external help file: shared_device_groups.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Applications.html#resource_Applications_getApplications_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Shared_Device_Groups.html#resource_Shared_Device_Groups_getSharedDeviceGroup_GET
 schema: 2.0.0
 ---
 
 # Get-SharedDeviceGroupByGuid
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to search the blackberry uem api and get 
+one shared device group by GUID.
 
 ## SYNTAX
 
@@ -17,21 +18,19 @@ Get-SharedDeviceGroupByGuid [-guid] <Guid> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Get one shared device group by GUID.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Get-SharedDeviceGroupByGuid -guid 'b15da5f1-a6e7-4bed-ae51-c3d4b99dc397'
+```
 
 ## PARAMETERS
 
 ### -guid
-{{ Fill guid Description }}
+GUID of the shared device group to get
 
 ```yaml
 Type: Guid
@@ -39,7 +38,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +49,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Shared_Device_Groups.html#resource_Shared_Device_Groups_getSharedDeviceGroup_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Shared_Device_Groups.html#resource_Shared_Device_Groups_getSharedDeviceGroup_GET)
+

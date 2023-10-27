@@ -1,14 +1,16 @@
 ---
 external help file: application_groups.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Users.html#resource_Users_sendUserDeviceCommand_POST
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_create_POST
 schema: 2.0.0
 ---
 
 # New-BBUEMApplicationGroup
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Create an application group.
+Only the name field of the group is required.
+The description field is optional.
 
 ## SYNTAX
 
@@ -17,36 +19,21 @@ New-BBUEMApplicationGroup [-name] <String> [[-description] <String>] [<CommonPar
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+This function Creates an application group.
+Only the name field of the group is required.
+The description field is optional.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+New-BBUEMApplicationGroup -name $app_group_name -description $description
+```
 
 ## PARAMETERS
 
-### -description
-{{ Fill description Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -name
-{{ Fill name Description }}
+The application group name.
 
 ```yaml
 Type: String
@@ -54,7 +41,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -description
+The application group description.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -65,11 +67,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
+### None.
 ## OUTPUTS
 
-### System.Object
+### unknown
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_create_POST](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_create_POST)
+

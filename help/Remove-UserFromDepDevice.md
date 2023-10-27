@@ -1,14 +1,14 @@
 ---
 external help file: apple_dep.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Users.html#resource_Users_getUserDetail_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_unassignUserFromDEPDevice_DELETE
 schema: 2.0.0
 ---
 
 # Remove-UserFromDepDevice
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Unassign a user, by GUID, from a DEP device.
 
 ## SYNTAX
 
@@ -17,21 +17,19 @@ Remove-UserFromDepDevice [-dep_device_guid] <Guid> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Function to Unassign a user, by GUID, from a DEP device.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Remove-UserFromDepDevice -dep_device_guid 'eb4f5da2-e221-4403-a78f-3513902e2718'
+```
 
 ## PARAMETERS
 
 ### -dep_device_guid
-{{ Fill dep_device_guid Description }}
+The DEP device guid to search for.
 
 ```yaml
 Type: Guid
@@ -39,7 +37,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +48,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_unassignUserFromDEPDevice_DELETE](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_unassignUserFromDEPDevice_DELETE)
+

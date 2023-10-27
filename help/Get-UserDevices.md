@@ -1,6 +1,6 @@
 ---
 external help file: users.psm1-help.xml
-Module Name: WC-BlackberryUEM
+Module Name: psBlackberryUEM
 online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_14_rest/resource_Users.html#resource_Users_getUserDevices_GET
 schema: 2.0.0
 ---

@@ -101,7 +101,7 @@ function Get-ApplicationConfig{
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
             return $Response
         }
         catch {

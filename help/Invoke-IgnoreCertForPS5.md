@@ -1,6 +1,6 @@
 ---
 external help file: helper_functions.psm1-help.xml
-Module Name: WC-BlackberryUEM
+Module Name: psBlackberryUEM
 online version: https://stackoverflow.com/questions/36456104/invoke-restmethod-ignore-self-signed-certs
 schema: 2.0.0
 ---

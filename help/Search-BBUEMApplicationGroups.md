@@ -1,14 +1,15 @@
 ---
 external help file: application_groups.psm1-help.xml
-Module Name: WC-BlackberryUEM
-online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Users.html#resource_Users_getUserDetail_GET
+Module Name: psBlackberryUEM
+online version: https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_getAppGroups_GET
 schema: 2.0.0
 ---
 
 # Search-BBUEMApplicationGroups
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Function to Get all application groups or application groups with a specific query. 
+If no application groups are found, an empty application group list is included in the response body.
 
 ## SYNTAX
 
@@ -17,21 +18,21 @@ Search-BBUEMApplicationGroups [-name] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+This function Get all application groups or application groups with a specific query. 
+If no application groups are found, an empty application group list is included in the response body.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+Search-BBUEMApplicationGroups -name 'TestAppGroup'
+```
 
 ## PARAMETERS
 
 ### -name
-{{ Fill name Description }}
+Name of the application group.
+Case insensitive exact match.
 
 ```yaml
 Type: String
@@ -39,7 +40,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,11 +51,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
-
+### None.
 ## OUTPUTS
 
-### System.Object
+### unknown
 ## NOTES
 
 ## RELATED LINKS
+
+[https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_getAppGroups_GET](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Application_Groups.html#resource_Application_Groups_getAppGroups_GET)
+
