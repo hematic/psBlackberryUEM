@@ -1,4 +1,41 @@
 function Search-vppAccounts {
+
+    <#
+    .SYNOPSIS
+
+    Function to Get details of Apple VPP accounts from a query.
+
+    .DESCRIPTION
+
+    Function to Get details of Apple VPP accounts from a query.
+
+    .PARAMETER vpp_account_name
+    The name of the Apple VPP account.
+
+    .PARAMETER token_expiry_date
+    The Apple VPP account token expiry date.
+
+    .PARAMETER operator
+    "Less Than", "Less Than Or Equal To", "Greater Than", "Greater Than Or Equal To"
+
+    .INPUTS
+
+    None.
+
+    .OUTPUTS
+
+    unknown
+
+    .EXAMPLE
+
+    Search-vppAccounts -vpp_account_name 'VPP-token-version-3' -token_expiry_date '2027-01-01T00:00:00.000Z' -operator 'Less Than'
+
+    .LINK
+
+   https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_VPP_Account.html#resource_Apple_VPP_Account_getVppAccounts_GET
+
+    #>
+
     [CmdletBinding(DefaultParameterSetName = 'NameOnly')]
     param(
         [Parameter(ParameterSetName = 'NameOnly')]
@@ -50,13 +87,42 @@ function Search-vppAccounts {
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-                default { Write-Error "Authentication failed: $_" }
+                default { Write-Error "$_" }
             } 
         }
     }
 }
 
-function Get-DepAccountByGuid {
+function Get-VPPAccountByGuid {
+
+    <#
+    .SYNOPSIS
+
+    Function to Get details of an Apple VPP account by GUID
+
+    .DESCRIPTION
+
+    Function to Get details of an Apple VPP account by GUID
+
+    .PARAMETER vpp_account_guid
+    The name of the Apple VPP account.
+
+    .INPUTS
+
+    None.
+
+    .OUTPUTS
+
+    unknown
+
+    .EXAMPLE
+
+    Get-VPPAccountByGuid -vpp_account_guid
+    .LINK
+
+   https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_VPP_Account.html#resource_Apple_VPP_Account_getVppAccount_GET
+
+    #>
 
     Param(
         [Parameter(Mandatory = $true)]
@@ -77,7 +143,7 @@ function Get-DepAccountByGuid {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' { Write-Error "Apple VPP Account not found." }
-            default { Write-Error "Authentication failed: $_" }
+            default { Write-Error "$_" }
         } 
     }
 }

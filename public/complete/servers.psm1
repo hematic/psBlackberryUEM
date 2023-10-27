@@ -32,7 +32,7 @@ function Get-BBUEMServers {
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -77,7 +77,7 @@ function Get-BBUEMServerByGuid {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404'   {Write-Error "Server not found"}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

@@ -42,7 +42,7 @@ function Get-APNsCert {
     }
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

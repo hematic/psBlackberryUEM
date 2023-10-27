@@ -62,7 +62,7 @@ function Search-CompanyDirectories {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
             '409' {Write-Error "No company directories configured."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

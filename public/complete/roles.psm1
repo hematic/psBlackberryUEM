@@ -73,7 +73,7 @@ Function Get-AdminRole {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404'   {Write-Error "Admin role not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -116,7 +116,7 @@ Function Get-AdminRoleUsers {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404'   {Write-Error "Admin role not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -166,7 +166,7 @@ Function Remove-AdminRoleFromUser {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404'   {Write-Error "Admin role not found."}
             '409'   {Write-Error "Unable to remove last security admin."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -216,7 +216,7 @@ Function Add-AdminRoleToUser {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404'   {Write-Error "Admin role not found."}
             '409'   {Write-Error "Unable to remove last security admin."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

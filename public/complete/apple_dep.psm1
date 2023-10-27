@@ -80,7 +80,7 @@ function Search-DepAccounts {
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid search query. If using token_expiry date please ensure the datetime is in the ISO 8601 format."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
@@ -123,7 +123,7 @@ function Get-DepAccountByGuid {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Account not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -208,7 +208,7 @@ function Search-DepDevices {
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid search query."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
@@ -252,7 +252,7 @@ function Get-DepDeviceByGuid {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Device not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -295,7 +295,7 @@ function Remove-UserFromDepDevice {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Device not found."}
             '409' {Write-Error "User cannot be unassigned from device, the device is already activated."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -344,7 +344,7 @@ function Set-DepDeviceUser {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Device or User not found."}
             '409' {Write-Error "User cannot be assigned from device, the device is already activated."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
@@ -410,7 +410,7 @@ function Search-DepEnrollmentConfigs {
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid search query."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
@@ -453,12 +453,42 @@ function Get-DepEnrollmentConfigByGuid {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Enrollment Configuration not found."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
 
 function Remove-EnrollmentConfigFromDepDevices {
+
+    <#
+    .SYNOPSIS
+    Unassign DEP enrollment configuration from one or more DEP devices by GUID. 
+    Only the GUID field of each DEP device is required. If a device listed in the 
+    request body doesn't have enrollment configuration assigned or has another enrollment 
+    configuration assigned, it will be ignored. If enrollment configuration was not 
+    unassigned from one or more devices listed in the request, these devices will be returned 
+    in the response. 
+
+    .DESCRIPTION
+    Unassign DEP enrollment configuration from one or more DEP devices by GUID. 
+    Only the GUID field of each DEP device is required. If a device listed in the 
+    request body doesn't have enrollment configuration assigned or has another enrollment 
+    configuration assigned, it will be ignored. If enrollment configuration was not 
+    unassigned from one or more devices listed in the request, these devices will be returned 
+    in the response. 
+
+    .PARAMETER dep_enrollment_config_guid
+    GUID of enrollment configuration.
+
+    .PARAMETER dep_device_guids
+    Guids of DEP devices
+
+    .EXAMPLE
+    Remove-EnrollmentConfigFromDepDevices -$dep_enrollment_config_guid '51591f77-cd3a-4dea-9bd6-8addd47b6fe2' -dep_device_guids $device_guids
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_unassignEnrollmentConfigurationFromDEPDevices_DELETE
+    #>
 
     Param(
         [Parameter(Mandatory = $true)]
@@ -484,12 +514,42 @@ function Remove-EnrollmentConfigFromDepDevices {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Device or Enrollment Configuration not found."}
             '409' {Write-Error "Enrollment configuration cannot be unassigned from devices, some of the devices have been already activated."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
 
 function Add-EnrollmentConfigtoDepDevices {
+
+    <#
+    .SYNOPSIS
+    Assign DEP enrollment configuration to one or more DEP devices by GUID. 
+    Only the GUID field of each DEP device is required. If a device listed 
+    in the request body already has enrollment configuration assigned, it 
+    will be overwritten. If enrollment configuration cannot be assigned to 
+    one or more of the devices listed in the request, these devices will be 
+    returned in the response. 
+
+    .DESCRIPTION
+    Assign DEP enrollment configuration to one or more DEP devices by GUID. 
+    Only the GUID field of each DEP device is required. If a device listed 
+    in the request body already has enrollment configuration assigned, it 
+    will be overwritten. If enrollment configuration cannot be assigned to 
+    one or more of the devices listed in the request, these devices will be 
+    returned in the response. 
+
+    .PARAMETER dep_enrollment_config_guid
+    GUID of enrollment configuration.
+
+    .PARAMETER dep_device_guids
+    Guids of DEP devices
+
+    .EXAMPLE
+    Add-EnrollmentConfigtoDepDevices -$dep_enrollment_config_guid '51591f77-cd3a-4dea-9bd6-8addd47b6fe2' -dep_device_guids $device_guids
+
+    .LINK
+    https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Apple_DEP.html#resource_Apple_DEP_assignEnrollmentConfigurationToDEPDevices_POST
+    #>
 
     Param(
         [Parameter(Mandatory = $true)]
@@ -515,7 +575,7 @@ function Add-EnrollmentConfigtoDepDevices {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '404' {Write-Error "Dep Device or Enrollment Configuration not found."}
             '409' {Write-Error "Enrollment configuration cannot be assigned to devices, some of the devices have been already activated."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }

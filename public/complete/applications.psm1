@@ -53,7 +53,7 @@ function Get-BBUEMApplications {
     catch {
         Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
             '400' {Write-Error "Invalid search query."}
-            default {Write-Error "Authentication failed: $_"}
+            default {Write-Error "$_"}
         } 
     }
 }
