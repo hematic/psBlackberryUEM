@@ -39,15 +39,22 @@ function Get-BBUEMApplications {
         [Parameter(Mandatory = $true)]
         [string]$application
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applications-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
+    
     $api_url = $global:env:uem_environment + "/applications?query=name=$application"
+
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
 
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {

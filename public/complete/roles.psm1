@@ -16,6 +16,8 @@ Function Get-AdminRoles {
 
     Param(
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.adminroles-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -23,9 +25,13 @@ Function Get-AdminRoles {
 
     $api_url = $global:env:uem_environment + "/roles/admin"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -58,6 +64,8 @@ Function Get-AdminRole {
         [Parameter(Mandatory = $true)]
         [string] $guid
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.adminrole-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -65,9 +73,13 @@ Function Get-AdminRole {
 
     $api_url = $global:env:uem_environment + "/roles/admin/$guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -101,6 +113,8 @@ Function Get-AdminRoleUsers {
         [Parameter(Mandatory = $true)]
         [string] $guid
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.users-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -108,9 +122,13 @@ Function Get-AdminRoleUsers {
 
     $api_url = $global:env:uem_environment + "/roles/admin/$guid/users"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -150,6 +168,8 @@ Function Remove-AdminRoleFromUser {
         [Parameter(Mandatory = $true)]
         [System.Guid] $user_guid
     )
+
+    $method = 'Delete'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.users-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -157,9 +177,13 @@ Function Remove-AdminRoleFromUser {
 
     $api_url = $global:env:uem_environment + "/roles/admin/$admin_role_guid/users/$user_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -200,12 +224,18 @@ Function Add-AdminRoleToUser {
         [Parameter(Mandatory = $true)]
         [System.Guid] $user_guid
     )
+
+    $method = 'Put'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.users-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 
     $api_url = $global:env:uem_environment + "/roles/admin/$admin_role_guid/users/$user_guid"
+
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
 
     try {
         Invoke-IgnoreCertForPS5

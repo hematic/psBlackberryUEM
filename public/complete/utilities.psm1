@@ -51,7 +51,8 @@ function Get-BBUEMAuthString {
 
         $api_url = $base_uri + '/util/authorization'
         $global:env:uem_environment = $base_uri
-  
+    
+    $method = 'Post'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.authorizationrequest-v1+json'
     }
@@ -66,8 +67,14 @@ function Get-BBUEMAuthString {
     } | ConvertTo-Json
     
     try {
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+        Write-Debug "Body: $requestbody"
+
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $RequestBody
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
         $global:env:uem_auth_token = $response
     }
     catch {

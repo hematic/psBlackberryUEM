@@ -18,6 +18,8 @@ function Get-BBUEMServers {
 
     Param(
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.servers-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -25,9 +27,13 @@ function Get-BBUEMServers {
 
     $api_url = $global:env:uem_environment + "/servers"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -62,6 +68,8 @@ function Get-BBUEMServerByGuid {
         [Parameter(mandatory=$true)]
         [System.Guid]$server_guid
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.server-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -69,9 +77,13 @@ function Get-BBUEMServerByGuid {
 
     $api_url = $global:env:uem_environment + "/servers/$server_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -113,6 +125,8 @@ function Get-BBUEMServiceByServer {
         [Parameter(mandatory=$true)]
         [String]$type
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.service-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -120,9 +134,13 @@ function Get-BBUEMServiceByServer {
 
     $api_url = $global:env:uem_environment + "/servers/$server_guid/services/$type"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -196,6 +214,7 @@ function Set-BBUEMServiceByServer {
             Write-Error "You must pass at least one property of the directConnection object to update."
         }
 
+        $method = 'Put'
         $Headers = @{
             'Content-Type' = 'application/vnd.blackberry.service-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -228,6 +247,12 @@ function Set-BBUEMServiceByServer {
     }
 
     process{
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+        Write-Debug "Body: $body"
+
         try {
             Invoke-IgnoreCertForPS5
             $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Put -Body 

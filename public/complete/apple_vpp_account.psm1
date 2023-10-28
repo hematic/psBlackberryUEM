@@ -53,6 +53,8 @@ function Search-vppAccounts {
     )
 
     begin {
+
+        $method = 'Get'
         $Headers = @{
             'Accept'        = 'application/vnd.blackberry.vppaccounts-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -77,12 +79,16 @@ function Search-vppAccounts {
         }
     
         $api_url = $base_url + [String]::Join(",", $queryComponents)
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
             return $Response
         }
         catch {
@@ -128,6 +134,8 @@ function Get-VPPAccountByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$vpp_account_guid
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept'        = 'application/vnd.blackberry.vppaccount-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -135,9 +143,13 @@ function Get-VPPAccountByGuid {
 
     $api_url = $global:env:uem_environment + "/vppAccounts/$vpp_account_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {

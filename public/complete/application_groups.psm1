@@ -37,6 +37,7 @@ function Search-BBUEMApplicationGroups {
         [string]$name
     )
 
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroups-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -44,9 +45,13 @@ function Search-BBUEMApplicationGroups {
 
     $api_url = $global:env:uem_environment + "/applicationGroups?query=name=$name"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -100,6 +105,7 @@ function New-BBUEMApplicationGroup {
         [string]$description
     )
 
+    $method = 'Post'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -113,9 +119,14 @@ function New-BBUEMApplicationGroup {
         $body = New-BBUEMApplicationGroupsRequestBody -name $name
     }
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+    Write-Debug "Body: $body"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $body
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
         return $Response
     }
     catch {
@@ -164,6 +175,7 @@ function Get-BBUEMApplicationGroup {
         [System.Guid]$app_group_guid
     )
 
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -171,9 +183,13 @@ function Get-BBUEMApplicationGroup {
 
     $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -221,6 +237,7 @@ function Remove-BBUEMApplicationGroup {
         [System.Guid]$app_group_guid
     )
 
+    $method = 'Delete'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -228,9 +245,13 @@ function Remove-BBUEMApplicationGroup {
 
     $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -293,6 +314,7 @@ function Set-BBUEMApplicationGroup {
         [string]$description
     )
 
+    $method = 'Put'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.applicationgroup-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -307,9 +329,14 @@ function Set-BBUEMApplicationGroup {
         $body = New-BBUEMApplicationGroupsRequestBody -name $name
     }
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+    Write-Debug "Body: $body"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Put -Body $body
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
         return $Response
     }
     catch {
@@ -358,6 +385,8 @@ function Get-ApplicationGroupApps {
         [Parameter(Mandatory = $true)]
         [System.Guid]$app_group_guid
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applications-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -365,9 +394,13 @@ function Get-ApplicationGroupApps {
 
     $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid/applications"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -425,6 +458,7 @@ function Add-ApplicationGroupApps {
         [System.guid[]]$application_guids
     )
 
+    $method = 'Post'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applications-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -433,9 +467,14 @@ function Add-ApplicationGroupApps {
     $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid/application"
     $body = New-UEMApplicationGroupAppsRequestBody -guidarray $application_guids
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+    Write-Debug "Body: $body"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $body
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
         return $Response
     }
     catch {
@@ -495,6 +534,7 @@ function Set-ApplicationGroupApps {
         [System.guid[]]$application_guids
     )
 
+    $method = 'Post'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applications-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -503,9 +543,14 @@ function Set-ApplicationGroupApps {
     $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid/applications"
     $body = New-UEMApplicationGroupAppsRequestBody -guidarray $application_guids
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+    Write-Debug "Body: $body"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $body
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
         return $Response
     }
     catch {

@@ -53,6 +53,7 @@ function Search-DepAccounts {
     )
 
     begin{
+        $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.depaccounts-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -72,9 +73,13 @@ function Search-DepAccounts {
             }
         }
 
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
             return $Response
         }
         catch {
@@ -108,6 +113,7 @@ function Get-DepAccountByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_account_guid
     )
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depaccount-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -115,9 +121,13 @@ function Get-DepAccountByGuid {
 
     $api_url = $global:env:uem_environment + "/depAccounts/$dep_account_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -181,6 +191,7 @@ function Search-DepDevices {
     )
 
     begin{
+        $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.depdevices-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -200,9 +211,13 @@ function Search-DepDevices {
             }
         }
 
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
             return $Response
         }
         catch {
@@ -237,6 +252,7 @@ function Get-DepDeviceByGuid {
         [System.Guid]$dep_device_guid
     )
 
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -244,9 +260,13 @@ function Get-DepDeviceByGuid {
 
     $api_url = $global:env:uem_environment + "/depDevices/$dep_device_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -279,6 +299,7 @@ function Remove-UserFromDepDevice {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_device_guid
     )
+    $method = 'Delete'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -286,9 +307,13 @@ function Remove-UserFromDepDevice {
 
     $api_url = $global:env:uem_environment + "/depDevices/$dep_device_guid/user"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -328,6 +353,7 @@ function Set-DepDeviceUser {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
+    $method = 'Put'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -335,9 +361,13 @@ function Set-DepDeviceUser {
 
     $api_url = $global:env:uem_environment + "/depDevices/$dep_device_guid/user/$user_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -385,6 +415,8 @@ function Search-DepEnrollmentConfigs {
         if(!$dep_account_name -and !$config_name){
             Write-Error "This function requires you pass at least one of the two existing parameters."
         }
+        
+        $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.enrollmentconfigurations-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -402,9 +434,13 @@ function Search-DepEnrollmentConfigs {
             $api_url = $global:env:uem_environment + "/enrollmentConfigurations?query=name=$config_name"
         }
 
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
             return $Response
         }
         catch {
@@ -438,6 +474,8 @@ function Get-DepEnrollmentConfigByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_enrollment_config_guid
     )
+
+    $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.enrollmentconfiguration-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -445,9 +483,13 @@ function Get-DepEnrollmentConfigByGuid {
 
     $api_url = $global:env:uem_environment + "/enrollmentConfigurations/$dep_enrollment_config_guid"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
         return $Response
     }
     catch {
@@ -497,6 +539,8 @@ function Remove-EnrollmentConfigFromDepDevices {
         [Parameter(Mandatory = $true)]
         [System.Guid[]]$dep_device_guids
     )
+
+    $method = 'Delete'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.depdevices-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -504,10 +548,14 @@ function Remove-EnrollmentConfigFromDepDevices {
 
     $api_url = $global:env:uem_environment + "/enrollmentConfigurations/$dep_enrollment_config_guid/depDevices"
 
+    Write-Debug "URI: $api_url"
+    Write-Debug "Headers: $headers"
+    Write-Debug "Method: $method"
+
     try {
         Invoke-IgnoreCertForPS5
         $body = New-UEMEnrollmentConfigFromDepDeviceRequestBody -GuidArray $dep_device_guids
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete -Body $body
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
         return $Response
     }
     catch {
@@ -558,6 +606,8 @@ function Add-EnrollmentConfigtoDepDevices {
         [Parameter(Mandatory = $true)]
         [System.Guid[]]$dep_device_guids
     )
+
+    $method = 'Post'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevices-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -565,10 +615,17 @@ function Add-EnrollmentConfigtoDepDevices {
 
     $api_url = $global:env:uem_environment + "/enrollmentConfigurations/$dep_enrollment_config_guid/depDevices"
 
+
     try {
         Invoke-IgnoreCertForPS5
         $body = New-UEMEnrollmentConfigFromDepDeviceRequestBody -GuidArray $dep_device_guids
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $body
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+        Write-Debug "Body: $body"
+
+        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
         return $Response
     }
     catch {
