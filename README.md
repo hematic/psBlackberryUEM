@@ -7,6 +7,9 @@ PowerShell Module to interact with the BlackBerry UEM API
 - The endpoints that are supported may have bugs.
 - Please use caution when utilizing this module against production environments.
 
+# Current Release Notes (1.0.19)
+- Fixed two issues with Get-RestParams stopping it from returning proper otuput.
+- 
 # Current Release Notes (1.0.18)
 - Converted all functions over to calling Get-RestParams for standardization of the API calls.
 
@@ -17,7 +20,7 @@ Automate tasks with the Blackberry UEM API using psBlackberryUEM!
 
 This project hopes to offer complete code coverage for the [Blackberry UEM API](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/)
 
-As of Release Version [1.0.18](https://www.powershellgallery.com/packages/psBlackberryUEM/1.0.18) the below table reflects the current code coverage.
+As of Release Version [1.0.19](https://www.powershellgallery.com/packages/psBlackberryUEM/1.0.19) the below table reflects the current code coverage.
 
 |Endpoint|Code Coverage|Help|SupportsDebug|HasTests
 |-|-|-|-|-|
