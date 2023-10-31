@@ -41,17 +41,7 @@ function Get-BBUEMApplications {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.applications-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        
-        $api_url = $global:env:uem_environment + "/applications?query=name=$application"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applications' -endpoint "/applications?query=name=$application"
     }
     Process{
         try {

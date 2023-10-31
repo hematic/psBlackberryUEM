@@ -33,23 +33,13 @@ function Search-User {
     
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.users-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users?query=username=$user&max=100&offset=$offset&sortBy=username%20DESC"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'users' -endpoint "/users?query=username=$user&max=100&offset=$offset&sortBy=username%20DESC"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -100,23 +90,13 @@ function Get-UserByGuid {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.userdetail-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users/$user_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'userdetail' -endpoint "/users/$user_guid"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -166,23 +146,13 @@ function Remove-UserByGuid {
     )
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Delete'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.user-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users/$user_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Delete' -media_type 'user' -endpoint "/users/$user_guid"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -240,22 +210,13 @@ function Get-UserDevices {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'userdevices' -endpoint "/users/$user_guid/userDevices"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -378,23 +339,13 @@ function Get-UserAssignedProfile {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.profileassignment-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users/$user_guid/profiles/$profile_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'profileassignment' -endpoint "/users/$user_guid/profiles/$profile_guid"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -446,23 +397,13 @@ function Get-UserServices {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.serviceassignments-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users/$user_guid/services"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'serviceassignments' -endpoint "/users/$user_guid/services"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -523,22 +464,13 @@ function Get-UserDeviceByGuid {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.userdevice-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'userdevice' -endpoint "/users/$user_guid/userDevices/$device_guid"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -589,22 +521,13 @@ function Get-UserApps {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.applicationassignments-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users/$user_guid/applications"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationassignments' -endpoint "/users/$user_guid/applications"
     }
+
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -662,23 +585,13 @@ function Get-UserAppByGuid {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.userdevice.application-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$user_device_guid/applications/$app_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'userdevice.application' -endpoint "/users/$user_guid/userDevices/$user_device_guid/applications/$app_guid"
     }
 
     process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -794,12 +707,7 @@ function Invoke-UserDeviceApplicationCommand {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Post'
-        $Headers = @{
-            'Content-Type' = 'application/vnd.blackberry.command-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/applications/$application_guid/commands"
+        $rest_params = Get-RestParams -method 'Post' -media_type 'command' -endpoint "/users/$user_guid/userDevices/$device_guid/applications/$application_guid/commands"
 
         switch ($PsCmdlet.ParameterSetName) {
             "ATTEST_APPLICATION" {
@@ -827,15 +735,12 @@ function Invoke-UserDeviceApplicationCommand {
             }
         }
 
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $($headers | Out-String)"
-        Write-Debug "Method: $method"
         Write-Debug "Body: $RequestBody"
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $RequestBody
             return $Response
         }
         catch {
@@ -917,12 +822,7 @@ function Invoke-UserDeviceCommand {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Post'
-        $Headers = @{
-            'Content-type' = 'application/vnd.blackberry.command-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/commands"
+        $rest_params = Get-RestParams -method 'Post' -media_type 'command' -endpoint "/users/$user_guid/userDevices/$device_guid/commands"
 
         switch ($command) {
             "DELETE_WORK_SPACE_DATA" {
@@ -933,15 +833,12 @@ function Invoke-UserDeviceCommand {
             }
         }
 
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $($headers | Out-String)"
-        Write-Debug "Method: $method"
         Write-Debug "Body: $RequestBody"
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $RequestBody
             return $Response
         }
         catch {
@@ -1011,22 +908,12 @@ function Get-UserDeviceCommandStatus {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.command-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/commands/$command_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $($headers | Out-String)"
-        Write-Debug "Method: $method"
-
+        $rest_params = Get-RestParams -method 'Get' -media_type 'command' -endpoint "/users/$user_guid/userDevices/$device_guid/commands/$command_guid"
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -1088,22 +975,12 @@ function Get-UserDeviceProfiles {
     )
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.profiles-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/profiles"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $($headers | Out-String)"
-        Write-Debug "Method: $method"
-
+        $rest_params = Get-RestParams -method 'Get' -media_type 'profiles' -endpoint "/users/$user_guid/userDevices/$device_guid/profiles"
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {

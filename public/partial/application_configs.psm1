@@ -21,26 +21,15 @@ function Search-ApplicationConfigs{
 
 
     begin {
-        $method = 'Get'
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.applicationconfigs-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-
-        $base_url = $global:env:uem_environment + "/applicationConfigs?query="
         $query = New-AppConfigQuery -search_params $PSBoundParameters -ErrorAction Stop
-        $api_url = $base_url + $query
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationconfigs' -endpoint $("/applicationConfigs?query=" + $query)
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -64,23 +53,13 @@ function Remove-ApplicationConfig{
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'delete'
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.applicationconfigs-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-
-        $api_url = $global:env:uem_environment + "/applicationConfigs/$app_config_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Delete' -media_type 'applicationconfigs' -endpoint "/applicationConfigs/$app_config_guid"
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -101,23 +80,13 @@ function Get-ApplicationConfig{
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.applicationconfig-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-
-        $api_url = $global:env:uem_environment + "/applicationConfigs/$app_config_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationconfig' -endpoint "/applicationConfigs/$app_config_guid"
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {

@@ -12,7 +12,7 @@
     #RootModule = '.\psExtrahop.psm1'
     
     # Version number of this module.
-    ModuleVersion = '1.0.17'
+    ModuleVersion = '1.0.18'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -132,7 +132,7 @@
             IconUri = 'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/31/fb/9e/31fb9e56-debe-002b-bb3c-b774864ac855/AppIconForGood-0-1x_U007emarketing-0-10-0-85-220.png/1200x630wa.png'
     
             # ReleaseNotes of this module
-            ReleaseNotes = 'Added in more debugging information. Fixed Invoke-UserDeviceApplicationCommand to properly Lock and Delete Applications. All functions now follow a Begin/Process format for standardization.'
+            ReleaseNotes = 'Converted all functions over to calling Get-RestParams for standardization of the API calls.'
     
         } # End of PSData hashtable
     

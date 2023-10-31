@@ -54,13 +54,6 @@ function Search-vppAccounts {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.vppaccounts-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-
-        $base_url = $global:env:uem_environment + "vppAccounts?query="
         $queryComponents = @()
 
         switch ($operator) {
@@ -78,17 +71,13 @@ function Search-vppAccounts {
             $queryComponents += "tokenExpiryDate$operatorSymbol$expiryDateStr"
         }
     
-        $api_url = $base_url + [String]::Join(",", $queryComponents)
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'vppaccounts' -endpoint $("vppAccounts?query=" + [String]::Join(",", $queryComponents))
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -136,22 +125,12 @@ function Get-VPPAccountByGuid {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.vppaccount-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/vppAccounts/$vpp_account_guid"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'vppaccount' -endpoint "/vppAccounts/$vpp_account_guid"
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {

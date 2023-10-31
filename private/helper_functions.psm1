@@ -239,3 +239,47 @@ function New-AppConfigQuery {
 
     Write-Output $query_string
 }
+
+function Get-RestParams {
+
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $True)]
+        [string]$method,
+
+        [Parameter(Mandatory = $True)]
+        [string]$media_type,
+
+        [Parameter(Mandatory = $True)]
+        [string]$endpoint
+    )
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        Write-Debug "media_type = $media_type"
+        Write-Debug "method = $method"
+    }
+
+    process{
+        switch ($method) {
+            'Post'      { $representation_header = 'Content-Type'}
+            'Patch'     { $representation_header = 'Content-Type'}
+            'Put'       { $representation_header = 'Accept'}
+            'Delete'    { $representation_header = 'Accept'}
+            'Get'       { $representation_header = 'Accept'}
+            Default { Write-Error "Unknown method passed. Method was: $method" }
+        }
+
+        $rest_params = New-Object -TypeName psobject -Property @{
+            method = $method
+            $Headers = @{
+                $representation_header = "application/vnd.blackberry.$media_type-v1+json"
+                "Authorization" = $global:env:uem_auth_token
+            }
+            api_url = $global:env:uem_environment + $endpoint
+        }
+        Write-Debug "Headers: $($rest_params.headers | Out-String)"
+        Write-Debug "Method: $($rest_params.method)"
+        Write-Debug "API_URL: $($rest_params.api_url)"
+        Write-Ouput $rest_params
+    }
+}

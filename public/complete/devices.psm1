@@ -135,25 +135,14 @@ function Search-Devices {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.devices-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-
-        $base_url = $global:env:uem_environment + "/devices?query="
         $query = New-DeviceQuery -search_params $PSBoundParameters -ErrorAction Stop
-        $api_url = $base_url + $query
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'devices' -endpoint $("/devices?query=" + $query)
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {

@@ -45,35 +45,24 @@ function Get-ApplicationServers {
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         If(!$app_id -and !$connection_profile_name){
-            Write-error "You must pass either app_id of connection_profile_name."
+            Write-error "You must pass either app_id or connection_profile_name."
         }
-
-        $method = 'Get'
-        $Headers = @{
-            'Accept'        = 'application/vnd.blackberry.applicationservers-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-        $base_url = $global:env:uem_environment + "applicationServers?query="
         $queryComponents = @()
 
         if ($app_id) {
             $queryComponents += "app_id=$app_id"
         }
-    
         if ($connection_profile_name) {
             $queryComponents += "connectionProfileName=$connectionProfileName"
         }
     
-        $api_url = $base_url + [String]::Join(",", $queryComponents)
-        Write-Debug "URI: $api_url"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationservers' -endpoint $("applicationServers?query=" + [String]::Join(",", $queryComponents))
     }
 
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {

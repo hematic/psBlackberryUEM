@@ -18,23 +18,12 @@ function Get-BBUEMSystemInfo {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.systeminfo-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/info/systeminfo"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-    
+        $rest_params = Get-RestParams -method 'Get' -media_type 'systeminfo' -endpoint "/info/systeminfo"
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {

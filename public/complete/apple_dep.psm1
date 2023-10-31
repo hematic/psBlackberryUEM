@@ -54,33 +54,24 @@ function Search-DepAccounts {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.depaccounts-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-    }
-
-    process{
         switch ($PsCmdlet.ParameterSetName) {
             "ByToken" {
-                $api_url = $global:env:uem_environment + "/depAccounts?query=name=$name&max=$max&offset=$offset&includeTotal=true"
+                $endpoint = "/depAccounts?query=name=$name&max=$max&offset=$offset&includeTotal=true"
             }
             "ByName" {
-                $api_url = $global:env:uem_environment + "/depAccounts?query=tokenExpiryDate=$token_expiry_date&max=$max&offset=$offset&includeTotal=true"
+                $endpoint = "/depAccounts?query=tokenExpiryDate=$token_expiry_date&max=$max&offset=$offset&includeTotal=true"
             }
             default{
                 Write-Error "Unable to determine proper parameter set."
             }
         }
+        $rest_params = Get-RestParams -method 'Get' -media_type 'depaccounts' -endpoint $endpoint
+    }
 
-        Write-Debug "URI: $api_url"
-
+    process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -116,21 +107,12 @@ function Get-DepAccountByGuid {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.depaccount-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/depAccounts/$dep_account_guid"
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'depaccount' -endpoint "/depAccounts/$dep_account_guid"
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -196,33 +178,24 @@ function Search-DepDevices {
 
     begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.depdevices-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-    }
-
-    process{
         switch ($PsCmdlet.ParameterSetName) {
             "ByToken" {
-                $api_url = $global:env:uem_environment + "/depDevices?query=depAccountName=$name&max=$max&offset=$offset&includeTotal=true"
+                $endpoint = "/depDevices?query=depAccountName=$name&max=$max&offset=$offset&includeTotal=true"
             }
             "ByName" {
-                $api_url = $global:env:uem_environment + "/depDevices?query=serialNumber=$serial_number&max=$max&offset=$offset&includeTotal=true"
+                $endpoint = "/depDevices?query=serialNumber=$serial_number&max=$max&offset=$offset&includeTotal=true"
             }
             default{
                 Write-Error "Unable to determine proper parameter set."
             }
         }
+        $rest_params = Get-RestParams -method 'Get' -media_type 'depdevices' -endpoint $endpoint
+    }
 
-        Write-Debug "URI: $api_url"
-
+    process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -256,29 +229,22 @@ function Get-DepDeviceByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_device_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'depdevice' -endpoint "/depDevices/$dep_device_guid"
     }
-
-    $api_url = $global:env:uem_environment + "/depDevices/$dep_device_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "Dep Device not found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "Dep Device not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -304,30 +270,24 @@ function Remove-UserFromDepDevice {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_device_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Delete'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $rest_params = Get-RestParams -method 'Delete' -media_type 'depdevice' -endpoint "/depDevices/$dep_device_guid/user"
     }
 
-    $api_url = $global:env:uem_environment + "/depDevices/$dep_device_guid/user"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "Dep Device not found."}
-            '409' {Write-Error "User cannot be unassigned from device, the device is already activated."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "Dep Device not found."}
+                '409' {Write-Error "User cannot be unassigned from device, the device is already activated."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -359,30 +319,25 @@ function Set-DepDeviceUser {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Put'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $rest_params = Get-RestParams -method 'Put' -media_type 'depdevice' -endpoint "/depDevices/$dep_device_guid/user/$user_guid"
     }
 
-    $api_url = $global:env:uem_environment + "/depDevices/$dep_device_guid/user/$user_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "Dep Device or User not found."}
-            '409' {Write-Error "User cannot be assigned from device, the device is already activated."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "Dep Device or User not found."}
+                '409' {Write-Error "User cannot be assigned from device, the device is already activated."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -423,32 +378,22 @@ function Search-DepEnrollmentConfigs {
         if(!$dep_account_name -and !$config_name){
             Write-Error "This function requires you pass at least one of the two existing parameters."
         }
-        
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.enrollmentconfigurations-v1+json'
-            'Authorization' = $global:env:uem_auth_token
+        if($dep_account_name) {
+            If($config_name){
+                $endpoint = "/enrollmentConfigurations?query=depAccountName=$dep_account_name,name=$config_name"
+            }
+            $endpoint =  "/enrollmentConfigurations?query=depAccountName=$dep_account_name"
         }
+        else{
+            $endpoint = "/enrollmentConfigurations?query=name=$config_name"
+        }
+        $rest_params = Get-RestParams -method 'Get' -media_type 'enrollmentconfigurations' -endpoint $endpoint
     }
 
     process{
-        if($dep_account_name) {
-            If($config_name){
-                $api_url = $global:env:uem_environment + "/enrollmentConfigurations?query=depAccountName=$dep_account_name,name=$config_name"
-            }
-            $api_url = $global:env:uem_environment + "/enrollmentConfigurations?query=depAccountName=$dep_account_name"
-        }
-        else{
-            $api_url = $global:env:uem_environment + "/enrollmentConfigurations?query=name=$config_name"
-        }
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -482,29 +427,22 @@ function Get-DepEnrollmentConfigByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_enrollment_config_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.enrollmentconfiguration-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'enrollmentconfiguration' -endpoint "/enrollmentConfigurations/$dep_enrollment_config_guid"
     }
-
-    $api_url = $global:env:uem_environment + "/enrollmentConfigurations/$dep_enrollment_config_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "Dep Enrollment Configuration not found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "Dep Enrollment Configuration not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -548,22 +486,12 @@ function Remove-EnrollmentConfigFromDepDevices {
         [System.Guid[]]$dep_device_guids
     )
     Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Delete'
-    $Headers = @{
-        'Content-Type' = 'application/vnd.blackberry.depdevices-v1+json'
-        'Authorization' = $global:env:uem_auth_token
-    }
-
-    $api_url = $global:env:uem_environment + "/enrollmentConfigurations/$dep_enrollment_config_guid/depDevices"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
+    $rest_params = Get-RestParams -method 'Delete' -media_type 'depdevices' -endpoint "/enrollmentConfigurations/$dep_enrollment_config_guid/depDevices"
 
     try {
         Invoke-IgnoreCertForPS5
         $body = New-UEMEnrollmentConfigFromDepDeviceRequestBody -GuidArray $dep_device_guids
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
+        $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $body
         return $Response
     }
     catch {
@@ -614,33 +542,27 @@ function Add-EnrollmentConfigtoDepDevices {
         [Parameter(Mandatory = $true)]
         [System.Guid[]]$dep_device_guids
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Post'
-    $Headers = @{
-        'Content-Type' = 'application/vnd.blackberry.depdevices-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $rest_params = Get-RestParams -method 'Post' -media_type 'depdevices' -endpoint "/enrollmentConfigurations/$dep_enrollment_config_guid/depDevices"
     }
 
-    $api_url = $global:env:uem_environment + "/enrollmentConfigurations/$dep_enrollment_config_guid/depDevices"
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $body = New-UEMEnrollmentConfigFromDepDeviceRequestBody -GuidArray $dep_device_guids
+            Write-Debug "Body: $body"
 
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $body = New-UEMEnrollmentConfigFromDepDeviceRequestBody -GuidArray $dep_device_guids
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-        Write-Debug "Body: $body"
-
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "Dep Device or Enrollment Configuration not found."}
-            '409' {Write-Error "Enrollment configuration cannot be assigned to devices, some of the devices have been already activated."}
-            default {Write-Error "$_"}
-        } 
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $body
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "Dep Device or Enrollment Configuration not found."}
+                '409' {Write-Error "Enrollment configuration cannot be assigned to devices, some of the devices have been already activated."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
