@@ -25,6 +25,9 @@ function Search-CompanyDirectories {
     If specified, the value must be between 1 and 100, inclusive. 
     Defaults to 100 if not provided.
 
+    .OUTPUTS
+    psCustomObject
+
     .EXAMPLE
     Search-CompanyDirectories -query_value 'marshall' -limit 50 -include_existing_users $true
 
@@ -46,7 +49,7 @@ function Search-CompanyDirectories {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $rest_params = Get-RestParams -method 'Get' -media_type 'shareddevicegroups' -endpoint "/directories/users?search=$query_value&limit=$limit&includeExistingUsers=$include_existing_users"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'directoryusers' -endpoint "/directories/users?search=$query_value&limit=$limit&includeExistingUsers=$include_existing_users"
     }
     Process{
         try {
@@ -58,7 +61,7 @@ function Search-CompanyDirectories {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
                 '409' {Write-Error "No company directories configured."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }

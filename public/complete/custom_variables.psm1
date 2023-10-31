@@ -6,6 +6,13 @@ function Get-CustomVariables {
 
     .DESCRIPTION
     Function to Get custom variables.
+    
+    .INPUTS
+
+    None.
+
+    .OUTPUTS
+    psCustomObject  with a single property called 'customVaribles' which is an array. Yes that typo is actually what it returns.
 
     .EXAMPLE
     Get-CustomVariables
@@ -28,7 +35,7 @@ function Get-CustomVariables {
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }

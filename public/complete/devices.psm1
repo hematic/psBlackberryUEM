@@ -148,7 +148,7 @@ function Search-Devices {
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' { Write-Error "Invalid Search Query" }
-                default { Write-Error "$_" }
+                default { Write-Error "HTTP: $_" }
             } 
         }
     }

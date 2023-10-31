@@ -9,8 +9,13 @@ function Ping-BBUEMServer {
     the server is up and the authentication header is valid 
     before attempting to access other authenticated routes.
 
+    .OUTPUTS
+    string
+    
     .EXAMPLE
     Ping-BBUEMServer
+
+
 
     .LINK
     https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Ping.html#resource_Ping_ping_GET

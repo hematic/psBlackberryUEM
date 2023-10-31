@@ -10,6 +10,9 @@ function Get-BBUEMSystemInfo {
     .EXAMPLE
     Get-BBUEMSystemInfo
 
+    .OUTPUTS
+    psCustomObject
+
     .LINK
     https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Info.html#resource_Info_getSystemInfo_GET
     #>

@@ -13,7 +13,7 @@ Function to Get a list of users assigned to the given Admin Role.
 ## SYNTAX
 
 ```
-Get-AdminRoleUsers [-guid] <String> [<CommonParameters>]
+Get-AdminRoleUsers [-guid] <Guid> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,7 +32,7 @@ Get-AdminRoleUsers -guid 'f011e00e-88b8-431f-8e15-bed23d266d0c'
 GUID of the admin role.
 
 ```yaml
-Type: String
+Type: Guid
 Parameter Sets: (All)
 Aliases:
 

@@ -14,7 +14,7 @@ If no application groups are found, an empty application group list is included 
 ## SYNTAX
 
 ```
-Search-BBUEMApplicationGroups [-name] <String> [<CommonParameters>]
+Search-BBUEMApplicationGroups [[-name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,7 +39,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

@@ -13,27 +13,32 @@ Function to search the blackberry uem api and get available applications.
 ## SYNTAX
 
 ```
-Get-BBUEMApplications [-application] <String> [<CommonParameters>]
+Get-BBUEMApplications [[-name] <String>] [[-package_id] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function searches the Blackberry UEM API by uapplication name and returns an array of matching applications.
+This function searches the Blackberry UEM API by uapplication name, package id, or with no filter and returns an array of matching applications.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-UEMAPIUApplications -application 'UEM Client'
+Get-UEMAPIUApplications name 'UEM Client'
 ```
 
 ### EXAMPLE 2
 ```
-Get-UEMAPIUApplications -application 'UEM*'
+Get-UEMAPIUApplications package_id '8675309'
+```
+
+### EXAMPLE 3
+```
+Get-UEMAPIUApplications
 ```
 
 ## PARAMETERS
 
-### -application
+### -name
 This must be the application in blackberry uem.
 This also accepts wildcarding like 'Blackb*' which would return potentially multiple Blackberry apps.
 
@@ -42,8 +47,23 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -package_id
+This must be the package_id in blackberry uem.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

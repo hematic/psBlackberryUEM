@@ -10,6 +10,9 @@ Function Get-AdminRoles {
     .EXAMPLE
     Get-AdminRoles
 
+    .OUTPUTS
+    psCustomObject with a single property called 'roles' which is an array.
+
     .LINK
     https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/resource_Roles.html#resource_Roles_getAdminRoles_GET
     #>
@@ -30,7 +33,7 @@ Function Get-AdminRoles {
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }
@@ -74,7 +77,7 @@ Function Get-AdminRole {
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '404'   {Write-Error "Admin role not found."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }
@@ -118,7 +121,7 @@ Function Get-AdminRoleUsers {
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '404'   {Write-Error "Admin role not found."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }

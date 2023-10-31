@@ -40,7 +40,7 @@ function Get-APNsCert {
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP $_"}
             } 
         }
     }

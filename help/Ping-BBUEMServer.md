@@ -35,6 +35,7 @@ Ping-BBUEMServer
 
 ## OUTPUTS
 
+### string
 ## NOTES
 
 ## RELATED LINKS

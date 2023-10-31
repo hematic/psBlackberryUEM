@@ -7,11 +7,9 @@ PowerShell Module to interact with the BlackBerry UEM API
 - The endpoints that are supported may have bugs.
 - Please use caution when utilizing this module against production environments.
 
-# Current Release Notes (1.0.19)
-- Fixed two issues with Get-RestParams stopping it from returning proper otuput.
-- 
-# Current Release Notes (1.0.18)
-- Converted all functions over to calling Get-RestParams for standardization of the API calls.
+# Current Release Notes (1.0.20)
+- Many endpoints are now marked as successfully tested with all parameters. 
+- The non-tested endpoints should also work, i just have not been able to verify them yet.
 
 
 # Description
@@ -20,9 +18,9 @@ Automate tasks with the Blackberry UEM API using psBlackberryUEM!
 
 This project hopes to offer complete code coverage for the [Blackberry UEM API](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/)
 
-As of Release Version [1.0.19](https://www.powershellgallery.com/packages/psBlackberryUEM/1.0.19) the below table reflects the current code coverage.
+As of Release Version [1.0.20](https://www.powershellgallery.com/packages/psBlackberryUEM/1.0.20) the below table reflects the current code coverage.
 
-|Endpoint|Code Coverage|Help|SupportsDebug|HasTests
+|Endpoint|Code Coverage|Help|SupportsDebug|Tested
 |-|-|-|-|-|
 |APNs|Complete|Complete|Complete|ToDo
 |Apple DEP|Complete|Complete|Complete|ToDo
@@ -30,25 +28,25 @@ As of Release Version [1.0.19](https://www.powershellgallery.com/packages/psBlac
 |Application Groups|Complete|Complete|Complete|ToDo
 |Application Servers|Complete|Complete|Complete|ToDo
 |Application Configs|Partial|ToDo|Partial|ToDo
-|Applications|Complete|Complete|Complete|ToDo
+|Applications|Complete|Complete|Complete|Complete
 |Certificates|ToDo|ToDo|ToDo|ToDo
 |Clusters|Complete|Complete|Complete|ToDo
-|Company Directories|Complete|Complete|Complete|ToDo
-|Custom Variables|Complete|Complete|Complete|ToDo|
+|Company Directories|Complete|Complete|Complete|Complete
+|Custom Variables|Complete|Complete|Complete|Complete
 |Device Groups|ToDo|ToDo|ToDo|ToDo
-|Devices|Complete|Complete|Complete|ToDo|
+|Devices|Complete|Complete|Complete|Complete
 |Email Templates|ToDo|ToDo|ToDo|ToDo
 |Entities|ToDo|ToDo|ToDo|ToDo
 |Groups|ToDo|ToDo|ToDo|ToDo
-|Info|Complete|Complete|Complete|ToDo
+|Info|Complete|Complete|Complete|Complete
 |Licensing|Complete|Complete|Complete|ToDo
-|Ping|Complete|Complete|Complete|ToDo
+|Ping|Complete|Complete|Complete|Complete
 |Profiles|ToDo|ToDo|ToDo|ToDo|
-|Roles|Complete|Complete|Complete|ToDo
+|Roles|Complete|Complete|Complete|Complete
 |Servers|Complete|Complete|Complete|ToDo
 |Shared Device Groups|Complete|Complete|Complete|ToDo|
 |Users|Partial|Partial|ToDo|ToDo
-|Utilities|Complete|Complete|Complete|ToDo|
+|Utilities|Complete|Complete|Complete|Complete
 
 
 # Basic Usage

@@ -56,7 +56,7 @@ function Get-ApplicationServers {
             $queryComponents += "connectionProfileName=$connectionProfileName"
         }
     
-        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationservers' -endpoint $("applicationServers?query=" + [String]::Join(",", $queryComponents))
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationservers' -endpoint $("/applicationServers?query=" + [String]::Join(",", $queryComponents))
     }
 
     process {
@@ -67,7 +67,7 @@ function Get-ApplicationServers {
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-                default { Write-Error "$_" }
+                default { Write-Error "HTTP: $_" }
             } 
         }
     }

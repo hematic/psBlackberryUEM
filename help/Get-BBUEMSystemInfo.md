@@ -32,6 +32,7 @@ Get-BBUEMSystemInfo
 
 ## OUTPUTS
 
+### psCustomObject
 ## NOTES
 
 ## RELATED LINKS

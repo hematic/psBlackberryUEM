@@ -33,27 +33,25 @@ function Search-BBUEMApplicationGroups {
     #>
 
     Param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [string]$name
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.applicationgroups-v1+json'
-            'Authorization' = $global:env:uem_auth_token
+
+        If($name){
+            $endpoint = "/applicationGroups?query=name=$name"
         }
-    
-        $api_url = $global:env:uem_environment + "/applicationGroups?query=name=$name"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        else{
+            $endpoint = "/applicationGroups"
+        }
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationgroups' -endpoint $endpoint
+
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -109,17 +107,7 @@ function New-BBUEMApplicationGroup {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Post'
-        $Headers = @{
-            'Content-type' = 'application/vnd.blackberry.applicationgroup-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/applicationGroups"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Post' -media_type 'applicationgroup' -endpoint "/applicationGroups"
     }
     Process{
         If($description){
@@ -133,14 +121,14 @@ function New-BBUEMApplicationGroup {
     
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $body
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
                 '409' {Write-Error "Application group already exists."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }
@@ -184,28 +172,18 @@ function Get-BBUEMApplicationGroup {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applicationgroup' -endpoint "/applicationGroups/$app_group_guid"
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '404' {Write-Error "Application group not found."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }
@@ -249,22 +227,12 @@ function Remove-BBUEMApplicationGroup {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Delete'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Delete' -media_type 'applicationgroup' -endpoint "/applicationGroups/$app_group_guid"
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
@@ -329,17 +297,7 @@ function Set-BBUEMApplicationGroup {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Put'
-        $Headers = @{
-            'Content-Type' = 'application/vnd.blackberry.applicationgroup-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Put' -media_type 'applicationgroup' -endpoint "/applicationGroups/$app_group_guid"
     }
     Process{
         If($description){
@@ -353,7 +311,7 @@ function Set-BBUEMApplicationGroup {
 
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $body
             return $Response
         }
         catch {
@@ -361,7 +319,7 @@ function Set-BBUEMApplicationGroup {
                 '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
                 '404' {Write-Error "Application group not found."}
                 '409' {Write-Error "Application group already exists."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }
@@ -405,28 +363,18 @@ function Get-ApplicationGroupApps {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Get'
-        $Headers = @{
-            'Accept' = 'application/vnd.blackberry.applications-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-    
-        $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid/applications"
-    
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Get' -media_type 'applications' -endpoint "/applicationGroups/$app_group_guid/applications"
     }
     Process{
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '404' {Write-Error "Application group not found."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }
@@ -480,16 +428,7 @@ function Add-ApplicationGroupApps {
     )
     Begin{
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-        $method = 'Post'
-        $Headers = @{
-            'Content-Type' = 'application/vnd.blackberry.applications-v1+json'
-            'Authorization' = $global:env:uem_auth_token
-        }
-        $api_url = $global:env:uem_environment + "/applicationGroups/$app_group_guid/application"
-
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
+        $rest_params = Get-RestParams -method 'Post' -media_type 'applications' -endpoint "/applicationGroups/$app_group_guid/application"
     }
     Process{
         $body = New-UEMApplicationGroupAppsRequestBody -guidarray $application_guids
@@ -498,14 +437,14 @@ function Add-ApplicationGroupApps {
     
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $body
+            $Response = Invoke-RestMethod -Uri $rest_params.api_url -Headers $rest_params.headers -Method $rest_params.method -Body $body
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
                 '404' {Write-Error "Application group or application not found."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "Authentication failed: HTTP: $_"}
             } 
         }
     }
@@ -575,7 +514,7 @@ function Set-ApplicationGroupApps {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
                 '404' {Write-Error "Application group or application not found."}
-                default {Write-Error "$_"}
+                default {Write-Error "HTTP: $_"}
             } 
         }
     }

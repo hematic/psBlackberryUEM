@@ -13,7 +13,7 @@ Function to Get an admin role by GUID.
 ## SYNTAX
 
 ```
-Get-AdminRole [-guid] <String> [<CommonParameters>]
+Get-AdminRole [-guid] <Guid> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,7 +32,7 @@ Get-AdminRole -guid 'f011e00e-88b8-431f-8e15-bed23d266d0c'
 GUID of the admin role.
 
 ```yaml
-Type: String
+Type: Guid
 Parameter Sets: (All)
 Aliases:
 

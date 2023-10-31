@@ -30,8 +30,10 @@ Get-CustomVariables
 
 ## INPUTS
 
+### None.
 ## OUTPUTS
 
+### psCustomObject  with a single property called 'customVaribles' which is an array. Yes that typo is actually what it returns.
 ## NOTES
 
 ## RELATED LINKS

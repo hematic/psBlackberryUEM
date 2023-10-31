@@ -32,6 +32,7 @@ Get-AdminRoles
 
 ## OUTPUTS
 
+### psCustomObject with a single property called 'roles' which is an array.
 ## NOTES
 
 ## RELATED LINKS
