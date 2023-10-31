@@ -16,7 +16,7 @@ Function Get-AdminRoles {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.adminroles-v1+json'
@@ -64,7 +64,7 @@ Function Get-AdminRole {
         [Parameter(Mandatory = $true)]
         [string] $guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.adminrole-v1+json'
@@ -113,7 +113,7 @@ Function Get-AdminRoleUsers {
         [Parameter(Mandatory = $true)]
         [string] $guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.users-v1+json'
@@ -168,7 +168,7 @@ Function Remove-AdminRoleFromUser {
         [Parameter(Mandatory = $true)]
         [System.Guid] $user_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Delete'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.users-v1+json'
@@ -224,7 +224,7 @@ Function Add-AdminRoleToUser {
         [Parameter(Mandatory = $true)]
         [System.Guid] $user_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Put'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.users-v1+json'

@@ -39,7 +39,7 @@ function Get-BBUEMApplications {
         [Parameter(Mandatory = $true)]
         [string]$application
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applications-v1+json'

@@ -18,7 +18,7 @@ function Ping-BBUEMServer {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'text/plain'

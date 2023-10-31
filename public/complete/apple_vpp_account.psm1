@@ -53,7 +53,7 @@ function Search-vppAccounts {
     )
 
     begin {
-
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $method = 'Get'
         $Headers = @{
             'Accept'        = 'application/vnd.blackberry.vppaccounts-v1+json'
@@ -134,7 +134,7 @@ function Get-VPPAccountByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$vpp_account_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept'        = 'application/vnd.blackberry.vppaccount-v1+json'

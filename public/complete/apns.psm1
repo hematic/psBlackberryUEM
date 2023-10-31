@@ -32,6 +32,7 @@ function Get-APNsCert {
         'Accept' = 'application/vnd.blackberry.apnscert-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $api_url = $global:env:uem_environment + "/apnscert"
     

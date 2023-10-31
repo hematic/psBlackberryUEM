@@ -18,6 +18,7 @@ function Get-SharedDeviceGroups {
     )
 
     $method = 'Get'
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.shareddevicegroups-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -67,6 +68,7 @@ function Get-SharedDeviceGroupByGuid {
         [System.Guid]$guid
     )
 
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.shareddevicegroup-v1+json'
@@ -116,7 +118,7 @@ function Get-SharedDeviceGroupDevices {
         [Parameter(mandatory=$true)]
         [System.Guid]$guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
@@ -176,7 +178,7 @@ function Get-SharedDeviceGroupDevice {
         [Parameter(mandatory=$true)]
         [System.Guid]$device_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.userdevice-v1+json'

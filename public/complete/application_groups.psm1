@@ -36,7 +36,7 @@ function Search-BBUEMApplicationGroups {
         [Parameter(Mandatory = $true)]
         [string]$name
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroups-v1+json'
@@ -104,7 +104,7 @@ function New-BBUEMApplicationGroup {
         [Parameter(Mandatory = $false)]
         [string]$description
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Post'
     $Headers = @{
         'Content-type' = 'application/vnd.blackberry.applicationgroup-v1+json'
@@ -174,7 +174,7 @@ function Get-BBUEMApplicationGroup {
         [Parameter(Mandatory = $true)]
         [System.Guid]$app_group_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
@@ -236,7 +236,7 @@ function Remove-BBUEMApplicationGroup {
         [Parameter(Mandatory = $true)]
         [System.Guid]$app_group_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Delete'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
@@ -313,7 +313,7 @@ function Set-BBUEMApplicationGroup {
         [Parameter(Mandatory = $false)]
         [string]$description
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Put'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.applicationgroup-v1+json'
@@ -385,7 +385,7 @@ function Get-ApplicationGroupApps {
         [Parameter(Mandatory = $true)]
         [System.Guid]$app_group_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applications-v1+json'
@@ -457,7 +457,7 @@ function Add-ApplicationGroupApps {
         [Parameter(Mandatory = $true)]
         [System.guid[]]$application_guids
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Post'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.applications-v1+json'
@@ -533,7 +533,7 @@ function Set-ApplicationGroupApps {
         [Parameter(Mandatory = $true)]
         [System.guid[]]$application_guids
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Post'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.applications-v1+json'

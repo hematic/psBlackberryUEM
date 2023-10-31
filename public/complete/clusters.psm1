@@ -16,7 +16,7 @@ function Get-ProxyCluster {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.clusters-v1+json'

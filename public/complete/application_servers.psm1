@@ -43,7 +43,7 @@ function Get-ApplicationServers {
     )
 
     begin {
-
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         If(!$app_id -and !$connection_profile_name){
             Write-error "You must pass either app_id of connection_profile_name."
         }

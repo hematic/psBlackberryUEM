@@ -21,6 +21,7 @@ function Search-ApplicationConfigs{
 
 
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $Headers = @{
             'Accept'        = 'application/vnd.blackberry.applicationconfigs-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -59,6 +60,7 @@ function Remove-ApplicationConfig{
     )
 
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $Headers = @{
             'Accept'        = 'application/vnd.blackberry.applicationconfigs-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -90,6 +92,7 @@ function Get-ApplicationConfig{
     )
 
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $Headers = @{
             'Accept'        = 'application/vnd.blackberry.applicationconfig-v1+json'
             'Authorization' = $global:env:uem_auth_token

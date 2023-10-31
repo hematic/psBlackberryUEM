@@ -18,7 +18,7 @@ function Get-BBUEMServers {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.servers-v1+json'
@@ -68,7 +68,7 @@ function Get-BBUEMServerByGuid {
         [Parameter(mandatory=$true)]
         [System.Guid]$server_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.server-v1+json'
@@ -125,7 +125,7 @@ function Get-BBUEMServiceByServer {
         [Parameter(mandatory=$true)]
         [String]$type
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.service-v1+json'
@@ -213,7 +213,7 @@ function Set-BBUEMServiceByServer {
             -and !$web_proxy -and !$web_proxy_host_name -and !$web_proxy_port){
             Write-Error "You must pass at least one property of the directConnection object to update."
         }
-
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $method = 'Put'
         $Headers = @{
             'Content-Type' = 'application/vnd.blackberry.service-v1+json'

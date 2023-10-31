@@ -16,7 +16,7 @@ function Get-CustomVariables {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.usercustomvariables-v1+json'

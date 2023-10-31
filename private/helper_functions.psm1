@@ -28,7 +28,7 @@ Function Invoke-IgnoreCertForPS5 {
 
     #>
 
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     if (-not ([System.Management.Automation.PSTypeName]'ServerCertificateValidationCallback').Type){
         $certCallback = @"
 using System;
@@ -56,7 +56,7 @@ public class ServerCertificateValidationCallback
     }
 }
 "@
-            Add-Type $certCallback
+            Add-Type $certCallback | out-null
         }
 
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
@@ -100,6 +100,7 @@ function Convert-SecureStringtoBase64 {
         [Parameter(Mandatory = $true)]
         [pscredential]$credential
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $binary_string = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($($credential.password))
     $plain_text_string = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($binary_string)
     $EncodedPassword = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($plain_text_string))
@@ -111,7 +112,7 @@ function New-DeviceQuery {
         [Parameter(Mandatory = $True)]
         [hashtable]$search_params
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $queryComponents = @()
 
     If($search_params.keys -contains 'activation_date'){
@@ -202,7 +203,7 @@ function New-AppConfigQuery {
         [Parameter(Mandatory = $True)]
         [hashtable]$search_params
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $queryComponents = @()
 
     If($search_params.keys -contains 'app_name'){

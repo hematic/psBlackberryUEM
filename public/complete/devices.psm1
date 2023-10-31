@@ -134,7 +134,7 @@ function Search-Devices {
     )
 
     begin {
-
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $method = 'Get'
         $Headers = @{
             'Accept'        = 'application/vnd.blackberry.devices-v1+json'

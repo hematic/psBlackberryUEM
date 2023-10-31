@@ -53,6 +53,7 @@ function Search-DepAccounts {
     )
 
     begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.depaccounts-v1+json'
@@ -113,6 +114,7 @@ function Get-DepAccountByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_account_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depaccount-v1+json'
@@ -191,6 +193,7 @@ function Search-DepDevices {
     )
 
     begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.depdevices-v1+json'
@@ -251,7 +254,7 @@ function Get-DepDeviceByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_device_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
@@ -299,6 +302,7 @@ function Remove-UserFromDepDevice {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_device_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Delete'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
@@ -353,6 +357,7 @@ function Set-DepDeviceUser {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Put'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.depdevice-v1+json'
@@ -412,6 +417,7 @@ function Search-DepEnrollmentConfigs {
     )
 
     begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         if(!$dep_account_name -and !$config_name){
             Write-Error "This function requires you pass at least one of the two existing parameters."
         }
@@ -474,7 +480,7 @@ function Get-DepEnrollmentConfigByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$dep_enrollment_config_guid
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.enrollmentconfiguration-v1+json'
@@ -539,7 +545,7 @@ function Remove-EnrollmentConfigFromDepDevices {
         [Parameter(Mandatory = $true)]
         [System.Guid[]]$dep_device_guids
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Delete'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.depdevices-v1+json'
@@ -606,7 +612,7 @@ function Add-EnrollmentConfigtoDepDevices {
         [Parameter(Mandatory = $true)]
         [System.Guid[]]$dep_device_guids
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Post'
     $Headers = @{
         'Content-Type' = 'application/vnd.blackberry.depdevices-v1+json'

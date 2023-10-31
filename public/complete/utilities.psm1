@@ -48,9 +48,10 @@ function Get-BBUEMAuthString {
         HelpMessage="Enter in the format of https://server:port/tenantID/api/v1")]
         [string]$base_uri
     )
-
-        $api_url = $base_uri + '/util/authorization'
-        $global:env:uem_environment = $base_uri
+    
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+    $api_url = $base_uri + '/util/authorization'
+    $global:env:uem_environment = $base_uri
     
     $method = 'Post'
     $Headers = @{

@@ -16,7 +16,7 @@ function Get-BBUEMSystemInfo {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.systeminfo-v1+json'

@@ -30,7 +30,7 @@ function Search-User {
         [Parameter(Mandatory = $false)]
         [int]$offset = 0
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.users-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -87,6 +87,7 @@ function Get-UserByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.userdetail-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -143,6 +144,7 @@ function Remove-UserByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.user-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -206,6 +208,7 @@ function Get-UserDevices {
         [Parameter(Mandatory = $true)]
         [string]$user_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -333,6 +336,7 @@ function Get-UserAssignedProfile {
         [Parameter(Mandatory = $true)]
         [System.Guid]$profile_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.profileassignment-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -390,6 +394,7 @@ function Get-UserServices {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.serviceassignments-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -456,6 +461,7 @@ function Get-UserDeviceByGuid {
         [Parameter(Mandatory = $true)]
         [string]$device_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.userdevice-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -511,6 +517,7 @@ function Get-UserApps {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.applicationassignments-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -574,6 +581,7 @@ function Get-UserAppByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$app_guid
     )
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.userdevice.application-v1+json'
         'Authorization' = $global:env:uem_auth_token
@@ -697,6 +705,7 @@ function Invoke-UserDeviceApplicationCommand {
     )
 
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $method = 'Post'
         $Headers = @{
             'Content-Type' = 'application/vnd.blackberry.command-v1+json'
@@ -717,13 +726,16 @@ function Invoke-UserDeviceApplicationCommand {
                 Write-Debug "Matched: UNBLOCK_APPLICATION"
                 $RequestBody = New-UEMUnblockApplicationRequestBody -actionId $actionId
             }
-            "LOCK_APPLICATION" {
-                Write-Debug "Matched: LOCK_APPLICATION"
-                $RequestBody = New-UEMLockApplicationRequestBody
-            }
-            "DELETE_APPLICATION" {
-                Write-Debug "Matched: DELETE_APPLICATION"
-                $RequestBody = New-UEMDeleteApplicationRequestBody
+            "Default" {
+                Write-Debug "Matched: Default Parameter set"
+                Write-debug "Command is: $($PSBoundParameters['Command'])"
+
+                If($($PSBoundParameters['Command']) -eq "LOCK_APPLICATION"){
+                    $RequestBody = New-UEMLockApplicationRequestBody
+                }
+                ElseIf($($PSBoundParameters['Command']) -eq "DELETE_APPLICATION"){
+                    $RequestBody = New-UEMDeleteApplicationRequestBody
+                }
             }
         }
     }
@@ -817,6 +829,7 @@ function Invoke-UserDeviceCommand {
     )
 
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $Headers = @{
             'Content-type' = 'application/vnd.blackberry.command-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -904,6 +917,7 @@ function Get-UserDeviceCommandStatus {
     )
 
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.command-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -975,6 +989,7 @@ function Get-UserDeviceProfiles {
         [System.Guid]$device_guid
     )
     begin {
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.profiles-v1+json'
             'Authorization' = $global:env:uem_auth_token

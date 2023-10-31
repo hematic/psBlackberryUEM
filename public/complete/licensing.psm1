@@ -16,7 +16,7 @@ function Get-LicensingInfo {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.licensing-v1+json'
@@ -59,7 +59,7 @@ function Get-GroupBasedLicensingInfo {
 
     Param(
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.licensing-v1+json'

@@ -44,7 +44,7 @@ function Search-CompanyDirectories {
         [Parameter(Mandatory = $false)]
         [bool]$include_existing_users = $false
     )
-
+    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
     $method = 'Get'
     $Headers = @{
         'Accept' = 'application/vnd.blackberry.users-v1+json'
