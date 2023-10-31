@@ -697,41 +697,53 @@ function Invoke-UserDeviceApplicationCommand {
     )
 
     begin {
+        $method = 'Post'
         $Headers = @{
-            'Accept' = 'application/vnd.blackberry.command-v1+json'
+            'Content-Type' = 'application/vnd.blackberry.command-v1+json'
             'Authorization' = $global:env:uem_auth_token
         }
         $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/applications/$application_guid/commands"
 
         switch ($PsCmdlet.ParameterSetName) {
             "ATTEST_APPLICATION" {
+                Write-Debug "Matched: ATTEST_APPLICATION"
                 $RequestBody = New-UEMAttestApplicationRequestBody -type $type
             }
             "BLOCK_APPLICATION" {
+                Write-Debug "Matched: BLOCK_APPLICATION"
                 $RequestBody = New-UEMBlockApplicationRequestBody -actionId $actionId -title $title -body $body
             }
             "UNBLOCK_APPLICATION" {
+                Write-Debug "Matched: UNBLOCK_APPLICATION"
                 $RequestBody = New-UEMUnblockApplicationRequestBody -actionId $actionId
             }
             "LOCK_APPLICATION" {
+                Write-Debug "Matched: LOCK_APPLICATION"
                 $RequestBody = New-UEMLockApplicationRequestBody
             }
             "DELETE_APPLICATION" {
+                Write-Debug "Matched: DELETE_APPLICATION"
                 $RequestBody = New-UEMDeleteApplicationRequestBody
             }
         }
     }
     process {
         try {
+
+            Write-Debug "URI: $api_url"
+            Write-Debug "Headers: $($headers | Out-String)"
+            Write-Debug "Method: $method"
+            Write-Debug "Body: $RequestBody"
+
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $RequestBody
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, command not supported or invalid field semantics."}
                 '404' {Write-Error "User, Device, or application not found."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
@@ -806,7 +818,7 @@ function Invoke-UserDeviceCommand {
 
     begin {
         $Headers = @{
-            'Accept' = 'application/vnd.blackberry.command-v1+json'
+            'Content-type' = 'application/vnd.blackberry.command-v1+json'
             'Authorization' = $global:env:uem_auth_token
         }
         $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/commands"

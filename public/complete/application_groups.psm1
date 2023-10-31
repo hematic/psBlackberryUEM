@@ -107,7 +107,7 @@ function New-BBUEMApplicationGroup {
 
     $method = 'Post'
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.applicationgroup-v1+json'
+        'Content-type' = 'application/vnd.blackberry.applicationgroup-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 
@@ -460,7 +460,7 @@ function Add-ApplicationGroupApps {
 
     $method = 'Post'
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.applications-v1+json'
+        'Content-Type' = 'application/vnd.blackberry.applications-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 
@@ -536,7 +536,7 @@ function Set-ApplicationGroupApps {
 
     $method = 'Post'
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.applications-v1+json'
+        'Content-Type' = 'application/vnd.blackberry.applications-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 

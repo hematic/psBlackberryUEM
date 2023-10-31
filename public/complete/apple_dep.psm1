@@ -609,7 +609,7 @@ function Add-EnrollmentConfigtoDepDevices {
 
     $method = 'Post'
     $Headers = @{
-        'Accept' = 'application/vnd.blackberry.depdevices-v1+json'
+        'Content-Type' = 'application/vnd.blackberry.depdevices-v1+json'
         'Authorization' = $global:env:uem_auth_token
     }
 
