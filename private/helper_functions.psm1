@@ -271,8 +271,8 @@ function Get-RestParams {
 
         $rest_params = New-Object -TypeName psobject -Property @{
             method = $method
-            $Headers = @{
-                $representation_header = "application/vnd.blackberry.$media_type-v1+json"
+            Headers = @{
+                "$representation_header" = "application/vnd.blackberry." + $media_type + "-v1+json"
                 "Authorization" = $global:env:uem_auth_token
             }
             api_url = $global:env:uem_environment + $endpoint
@@ -280,6 +280,6 @@ function Get-RestParams {
         Write-Debug "Headers: $($rest_params.headers | Out-String)"
         Write-Debug "Method: $($rest_params.method)"
         Write-Debug "API_URL: $($rest_params.api_url)"
-        Write-Ouput $rest_params
+        Write-Output $rest_params
     }
 }
