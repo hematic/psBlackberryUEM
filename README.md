@@ -7,7 +7,7 @@ PowerShell Module to interact with the BlackBerry UEM API
 - The endpoints that are supported may have bugs.
 - Please use caution when utilizing this module against production environments.
 
-# Current Release Notes (1.0.15)
+# Current Release Notes (1.0.17)
 - Added in more debugging information. Fixed Invoke-UserDeviceApplicationCommand to properly Lock and Delete Applications. All functions now follow a Begin/Process format for standardization.
 
 
