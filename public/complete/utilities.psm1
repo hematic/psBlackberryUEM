@@ -49,37 +49,41 @@ function Get-BBUEMAuthString {
         [string]$base_uri
     )
     
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $api_url = $base_uri + '/util/authorization'
-    $global:env:uem_environment = $base_uri
-    
-    $method = 'Post'
-    $Headers = @{
-        'Content-Type' = 'application/vnd.blackberry.authorizationrequest-v1+json'
-    }
-
-    $EncodedPassword = Convert-SecureStringtoBase64 -credential $credential
-
-    $RequestBody = @{
-        'provider' = 'AD'
-        'username' = $Credential.Username
-        'password' = $EncodedPassword
-        'domain' = 'WCNET'
-    } | ConvertTo-Json
-    
-    try {
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $api_url = $base_uri + '/util/authorization'
+        $global:env:uem_environment = $base_uri
+        
+        $method = 'Post'
+        $Headers = @{
+            'Content-Type' = 'application/vnd.blackberry.authorizationrequest-v1+json'
+        }
 
         Write-Debug "URI: $api_url"
         Write-Debug "Headers: $headers"
         Write-Debug "Method: $method"
-        Write-Debug "Body: $requestbody"
-
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
-        $global:env:uem_auth_token = $response
     }
-    catch {
-        Write-Host "Authentication failed: $($_.Exception.Message)"
-        return $null
+
+    process{
+        $EncodedPassword = Convert-SecureStringtoBase64 -credential $credential
+
+        $RequestBody = @{
+            'provider' = 'AD'
+            'username' = $Credential.Username
+            'password' = $EncodedPassword
+            'domain' = 'WCNET'
+        } | ConvertTo-Json
+        
+        try {
+            Write-Debug "Body: $requestbody"
+    
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
+            $global:env:uem_auth_token = $response
+        }
+        catch {
+            Write-Host "Authentication failed: $($_.Exception.Message)"
+            return $null
+        }
     }
 }

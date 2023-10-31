@@ -16,28 +16,33 @@ Function Get-AdminRoles {
 
     Param(
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.adminroles-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.adminroles-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/roles/admin"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/roles/admin"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -64,29 +69,34 @@ Function Get-AdminRole {
         [Parameter(Mandatory = $true)]
         [string] $guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.adminrole-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.adminrole-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/roles/admin/$guid"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/roles/admin/$guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404'   {Write-Error "Admin role not found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404'   {Write-Error "Admin role not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -111,31 +121,37 @@ Function Get-AdminRoleUsers {
 
     Param(
         [Parameter(Mandatory = $true)]
-        [string] $guid
+        [System.Guid] $guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.users-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.users-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/roles/admin/$guid/users"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+    
     }
 
-    $api_url = $global:env:uem_environment + "/roles/admin/$guid/users"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404'   {Write-Error "Admin role not found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404'   {Write-Error "Admin role not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -168,30 +184,35 @@ Function Remove-AdminRoleFromUser {
         [Parameter(Mandatory = $true)]
         [System.Guid] $user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Delete'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.users-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Delete'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.users-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/roles/admin/$admin_role_guid/users/$user_guid"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/roles/admin/$admin_role_guid/users/$user_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404'   {Write-Error "Admin role not found."}
-            '409'   {Write-Error "Unable to remove last security admin."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404'   {Write-Error "Admin role not found."}
+                '409'   {Write-Error "Unable to remove last security admin."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -224,29 +245,34 @@ Function Add-AdminRoleToUser {
         [Parameter(Mandatory = $true)]
         [System.Guid] $user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Put'
-    $Headers = @{
-        'Content-Type' = 'application/vnd.blackberry.users-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Put'
+        $Headers = @{
+            'Content-Type' = 'application/vnd.blackberry.users-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/roles/admin/$admin_role_guid/users/$user_guid"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/roles/admin/$admin_role_guid/users/$user_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Put
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404'   {Write-Error "Admin role not found."}
-            '409'   {Write-Error "Unable to remove last security admin."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Put
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404'   {Write-Error "Admin role not found."}
+                '409'   {Write-Error "Unable to remove last security admin."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }

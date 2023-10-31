@@ -53,7 +53,8 @@ function Get-ApplicationServers {
             'Accept'        = 'application/vnd.blackberry.applicationservers-v1+json'
             'Authorization' = $global:env:uem_auth_token
         }
-
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
         $base_url = $global:env:uem_environment + "applicationServers?query="
         $queryComponents = @()
 
@@ -66,14 +67,10 @@ function Get-ApplicationServers {
         }
     
         $api_url = $base_url + [String]::Join(",", $queryComponents)
+        Write-Debug "URI: $api_url"
     }
 
     process {
-        
-        Write-Debug "URI: $api_url"
-        Write-Debug "Headers: $headers"
-        Write-Debug "Method: $method"
-
         try {
             Invoke-IgnoreCertForPS5
             $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method

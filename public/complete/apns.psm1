@@ -28,26 +28,31 @@ function Get-APNsCert {
     #>
     Param(
     )
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.apnscert-v1+json'
-        'Authorization' = $global:env:uem_auth_token
-    }
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $api_url = $global:env:uem_environment + "/apnscert"
-    
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
+    Begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
 
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.apnscert-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+        
+        $method = 'Get'
+        $api_url = $global:env:uem_environment + "/apnscert"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "$_"}
-        } 
+    Process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }

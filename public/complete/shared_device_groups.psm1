@@ -17,29 +17,34 @@ function Get-SharedDeviceGroups {
     Param(
     )
 
-    $method = 'Get'
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.shareddevicegroups-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    begin{
+        $method = 'Get'
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.shareddevicegroups-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/sharedDeviceGroups"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
+    
     }
 
-    $api_url = $global:env:uem_environment + "/sharedDeviceGroups"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -68,30 +73,33 @@ function Get-SharedDeviceGroupByGuid {
         [System.Guid]$guid
     )
 
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.shareddevicegroup-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.shareddevicegroup-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/sharedDeviceGroups/$guid"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-
-    $api_url = $global:env:uem_environment + "/sharedDeviceGroups/$guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            '404'   {Write-Error "Shared device group not found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
+                '404'   {Write-Error "Shared device group not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -118,30 +126,35 @@ function Get-SharedDeviceGroupDevices {
         [Parameter(mandatory=$true)]
         [System.Guid]$guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/sharedDeviceGroups/$guid/userDevices"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-
-    $api_url = $global:env:uem_environment + "/sharedDeviceGroups/$guid/userDevices"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            '404'   {Write-Error "Shared device group not found."}
-            default {Write-Error "$_"}
-        } 
+    
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
+                '404'   {Write-Error "Shared device group not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -178,29 +191,34 @@ function Get-SharedDeviceGroupDevice {
         [Parameter(mandatory=$true)]
         [System.Guid]$device_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.userdevice-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.userdevice-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/sharedDeviceGroups/$group_guid/userDevices/$device_guid"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/sharedDeviceGroups/$group_guid/userDevices/$device_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            '404'   {Write-Error "Shared device group not found or Device Not Found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
+                '404'   {Write-Error "Shared device group not found or Device Not Found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }

@@ -16,27 +16,30 @@ function Get-ProxyCluster {
 
     Param(
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.clusters-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    Begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.clusters-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/clusters"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-
-    $api_url = $global:env:uem_environment + "/clusters"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "$_"}
-        } 
+    Process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }

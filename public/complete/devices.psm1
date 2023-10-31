@@ -145,15 +145,12 @@ function Search-Devices {
         $query = New-DeviceQuery -search_params $PSBoundParameters -ErrorAction Stop
         $api_url = $base_url + $query
 
-        Write-host $api_url
-    }
-
-    process {
-
         Write-Debug "URI: $api_url"
         Write-Debug "Headers: $headers"
         Write-Debug "Method: $method"
+    }
 
+    process {
         try {
             Invoke-IgnoreCertForPS5
             $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Method

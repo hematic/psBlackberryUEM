@@ -18,28 +18,33 @@ function Get-BBUEMServers {
 
     Param(
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.servers-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.servers-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/servers"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/servers"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -68,29 +73,34 @@ function Get-BBUEMServerByGuid {
         [Parameter(mandatory=$true)]
         [System.Guid]$server_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.server-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.server-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/servers/$server_guid"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/servers/$server_guid"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404'   {Write-Error "Server not found"}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404'   {Write-Error "Server not found"}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -125,30 +135,35 @@ function Get-BBUEMServiceByServer {
         [Parameter(mandatory=$true)]
         [String]$type
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.service-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.service-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/servers/$server_guid/services/$type"
+    
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/servers/$server_guid/services/$type"
-
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            '404'   {Write-Error "Server or service not found."}
-            default {Write-Error "$_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400'   {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
+                '404'   {Write-Error "Server or service not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -209,11 +224,12 @@ function Set-BBUEMServiceByServer {
         [int]$web_proxy_port
     )
     begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
         If(!$proxy_server_name -and !$direct_connect -and !$proxy_host_name `
             -and !$web_proxy -and !$web_proxy_host_name -and !$web_proxy_port){
             Write-Error "You must pass at least one property of the directConnection object to update."
         }
-        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+
         $method = 'Put'
         $Headers = @{
             'Content-Type' = 'application/vnd.blackberry.service-v1+json'
@@ -244,15 +260,14 @@ function Set-BBUEMServiceByServer {
         }
         $body = $body | ConvertTo-Json
         $api_url = $global:env:uem_environment + "/servers/$server_guid/services/$type"
-    }
-
-    process{
 
         Write-Debug "URI: $api_url"
         Write-Debug "Headers: $headers"
         Write-Debug "Method: $method"
         Write-Debug "Body: $body"
+    }
 
+    process{
         try {
             Invoke-IgnoreCertForPS5
             $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Put -Body 

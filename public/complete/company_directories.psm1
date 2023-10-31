@@ -44,29 +44,32 @@ function Search-CompanyDirectories {
         [Parameter(Mandatory = $false)]
         [bool]$include_existing_users = $false
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $method = 'Get'
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.users-v1+json'
-        'Authorization' = $global:env:uem_auth_token
-    }
-
-    $api_url = $global:env:uem_environment + "/directories/users?search=$query_value&limit=$limit&includeExistingUsers=$include_existing_users"
+    Begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.users-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
     
-    Write-Debug "URI: $api_url"
-    Write-Debug "Headers: $headers"
-    Write-Debug "Method: $method"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
-        return $Response
+        $api_url = $global:env:uem_environment + "/directories/users?search=$query_value&limit=$limit&includeExistingUsers=$include_existing_users"
+        
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
-            '409' {Write-Error "No company directories configured."}
-            default {Write-Error "$_"}
-        } 
+    Process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400' {Write-Error "Invalid request. For example, invalid field semantics or missing required field."}
+                '409' {Write-Error "No company directories configured."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }

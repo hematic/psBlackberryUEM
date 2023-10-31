@@ -30,24 +30,34 @@ function Search-User {
         [Parameter(Mandatory = $false)]
         [int]$offset = 0
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.users-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.users-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users?query=username=$user&max=100&offset=$offset&sortBy=username%20DESC"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/users?query=username=$user&max=100&offset=$offset&sortBy=username%20DESC"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400' {Write-Error "Invalid search query."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400' {Write-Error "Invalid search query."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -87,24 +97,34 @@ function Get-UserByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.userdetail-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.userdetail-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users/$user_guid"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/users/$user_guid"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "User not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "User not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -144,25 +164,34 @@ function Remove-UserByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.user-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Delete'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.user-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users/$user_guid"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/users/$user_guid"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Delete
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '409' {Write-Error "User has associated services or enrolled devices and cannot be removed."}
-            '404' {Write-Error "User not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '409' {Write-Error "User has associated services or enrolled devices and cannot be removed."}
+                '404' {Write-Error "User not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -208,23 +237,33 @@ function Get-UserDevices {
         [Parameter(Mandatory = $true)]
         [string]$user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
-        'Authorization' = $global:env:uem_auth_token
-    }
-    $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices"
 
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.userdevices-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "User or Device not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "User or Device not found."}
+                default {Write-Error "Authentication failed: $_"}
+            } 
+        }
     }
 }
 
@@ -336,25 +375,35 @@ function Get-UserAssignedProfile {
         [Parameter(Mandatory = $true)]
         [System.Guid]$profile_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.profileassignment-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.profileassignment-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users/$user_guid/profiles/$profile_guid"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/users/$user_guid/profiles/$profile_guid"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400' {Write-Error "Profile type not supported."}
-            '404' {Write-Error "User or profile not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400' {Write-Error "Profile type not supported."}
+                '404' {Write-Error "User or profile not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -394,24 +443,34 @@ function Get-UserServices {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.serviceassignments-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.serviceassignments-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users/$user_guid/services"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/users/$user_guid/services"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "User not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "User not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -461,23 +520,33 @@ function Get-UserDeviceByGuid {
         [Parameter(Mandatory = $true)]
         [string]$device_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.userdevice-v1+json'
-        'Authorization' = $global:env:uem_auth_token
-    }
-    $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid"
 
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.userdevice-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "User or Device not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "User or Device not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -517,25 +586,34 @@ function Get-UserApps {
         [Parameter(Mandatory = $true)]
         [System.Guid]$user_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.applicationassignments-v1+json'
-        'Authorization' = $global:env:uem_auth_token
-    }
 
-    $api_url = $global:env:uem_environment + "/users/$user_guid/applications"
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.applicationassignments-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users/$user_guid/applications"
 
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '400' {Write-Error "Invalid search query."}
-            '404' {Write-Error "User not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '400' {Write-Error "Invalid search query."}
+                '404' {Write-Error "User not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -581,24 +659,34 @@ function Get-UserAppByGuid {
         [Parameter(Mandatory = $true)]
         [System.Guid]$app_guid
     )
-    Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
-    $Headers = @{
-        'Accept' = 'application/vnd.blackberry.userdevice.application-v1+json'
-        'Authorization' = $global:env:uem_auth_token
+
+    begin{
+        Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
+        $Headers = @{
+            'Accept' = 'application/vnd.blackberry.userdevice.application-v1+json'
+            'Authorization' = $global:env:uem_auth_token
+        }
+    
+        $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$user_device_guid/applications/$app_guid"
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $headers"
+        Write-Debug "Method: $method"
     }
 
-    $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$user_device_guid/applications/$app_guid"
-
-    try {
-        Invoke-IgnoreCertForPS5
-        $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
-        return $Response
-    }
-    catch {
-        Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
-            '404' {Write-Error "User, Device, or Application not found."}
-            default {Write-Error "Authentication failed: $_"}
-        } 
+    process{
+        try {
+            Invoke-IgnoreCertForPS5
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
+            return $Response
+        }
+        catch {
+            Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
+                '404' {Write-Error "User, Device, or Application not found."}
+                default {Write-Error "$_"}
+            } 
+        }
     }
 }
 
@@ -738,15 +826,14 @@ function Invoke-UserDeviceApplicationCommand {
                 }
             }
         }
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $($headers | Out-String)"
+        Write-Debug "Method: $method"
+        Write-Debug "Body: $RequestBody"
     }
     process {
         try {
-
-            Write-Debug "URI: $api_url"
-            Write-Debug "Headers: $($headers | Out-String)"
-            Write-Debug "Method: $method"
-            Write-Debug "Body: $RequestBody"
-
             Invoke-IgnoreCertForPS5
             $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
             return $Response
@@ -830,6 +917,7 @@ function Invoke-UserDeviceCommand {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Post'
         $Headers = @{
             'Content-type' = 'application/vnd.blackberry.command-v1+json'
             'Authorization' = $global:env:uem_auth_token
@@ -844,18 +932,23 @@ function Invoke-UserDeviceCommand {
                 $RequestBody = New-UEMRemoveDeviceRequestBody
             }
         }
+
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $($headers | Out-String)"
+        Write-Debug "Method: $method"
+        Write-Debug "Body: $RequestBody"
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Post -Body $RequestBody
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method -Body $RequestBody
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, command not supported or invalid field semantics."}
                 '404' {Write-Error "User or Device not found."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
@@ -918,24 +1011,29 @@ function Get-UserDeviceCommandStatus {
 
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.command-v1+json'
             'Authorization' = $global:env:uem_auth_token
         }
         $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/commands/$command_guid"
 
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $($headers | Out-String)"
+        Write-Debug "Method: $method"
+
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '400' {Write-Error "Invalid request. For example, command not supported or invalid field semantics."}
                 '404' {Write-Error "User, Device, or Device Command not found."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
@@ -990,23 +1088,28 @@ function Get-UserDeviceProfiles {
     )
     begin {
         Write-Debug "Entering Function: $($MyInvocation.MyCommand)"
+        $method = 'Get'
         $Headers = @{
             'Accept' = 'application/vnd.blackberry.profiles-v1+json'
             'Authorization' = $global:env:uem_auth_token
         }
         $api_url = $global:env:uem_environment + "/users/$user_guid/userDevices/$device_guid/profiles"
 
+        Write-Debug "URI: $api_url"
+        Write-Debug "Headers: $($headers | Out-String)"
+        Write-Debug "Method: $method"
+
     }
     process {
         try {
             Invoke-IgnoreCertForPS5
-            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method Get
+            $Response = Invoke-RestMethod -Uri $api_url -Headers $Headers -Method $method
             return $Response
         }
         catch {
             Switch -Wildcard ($_.Exception.Response.StatusCode.value__) {
                 '404' {Write-Error "User or Device not found."}
-                default {Write-Error "Authentication failed: $_"}
+                default {Write-Error "$_"}
             } 
         }
     }
