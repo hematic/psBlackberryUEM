@@ -8,7 +8,7 @@ PowerShell Module to interact with the BlackBerry UEM API
 - Please use caution when utilizing this module against production environments.
 
 # Current Release Notes (1.0.15)
-- Fixed http 415 errors on post. Was using the accept header and not Content-type in multiple places.
+- Added in more debugging information. Fixed Invoke-UserDeviceApplicationCommand to properly Lock and Delete Applications. All functions now follow a Begin/Process format for standardization.
 
 
 # Description
@@ -17,7 +17,7 @@ Automate tasks with the Blackberry UEM API using psBlackberryUEM!
 
 This project hopes to offer complete code coverage for the [Blackberry UEM API](https://developer.blackberry.com/files/bws/reference/blackberry_uem_12_18_rest/)
 
-As of Release Version [1.0.15](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.15) the below table reflects the current code coverage.
+As of Release Version [1.0.17](https://www.powershellgallery.com/packages/WC-BlackberryUEM/1.0.17) the below table reflects the current code coverage.
 
 |Endpoint|Code Coverage|Help|SupportsDebug|HasTests
 |-|-|-|-|-|
